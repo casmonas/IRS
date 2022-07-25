@@ -273,7 +273,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Material Request Form</h1>
+            <h1 class="m-0 text-dark">Customer Request Form</h1>
             <div class="userName"><p>Welcome, <span><?=$uid?></span></p></div>
           </div><!-- /.col -->
           <div class="col-sm-6">
@@ -285,6 +285,94 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="card card-primary">
+             <div class="card-header">
+                <h3 class="card-title" align="center">Product Detail</h3>
+              </div>
+        </div>
+        <?php
+                           require('../db/config.php');
+                            function getTableDataFromDB($s)
+                            {
+                              require('../db/config.php');
+                                $res1 = mysqli_query($conn, $s)or die(mysqli_error());
+                                $ar=array();
+                                while($r = mysqli_fetch_assoc($res1)) {
+                                    $ar[]=$r;
+                                }
+                                return json_encode($ar);
+                            }
+
+                            // $s1=" SELECT t2.req_order_id,  t1.* FROM req_offer AS t1 INNER JOIN req_offer_items AS t2 WHERE t1.r_id = t2.req_order_id ";
+                            //$s1=" SELECT * FROM materialTable";
+                            $s1= "SELECT c.* , m.* FROM categoryTable c INNER JOIN materialTable m ON c.categoryID=m.categoryID";
+                            // echo $s1;
+                            $jn1=getTableDataFromDB($s1);
+                            //echo $jsn;
+                            $jr1=json_decode($jn1);
+
+                      
+                            echo '<table id="example1" class="table table-bordered table-striped">';
+                            echo "   <thead>
+                            <tr>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>  
+                            <th>Material Level Alert</th>           
+                            </tr>
+                            </thead>";
+                            foreach($jr1 as $table)
+                            {
+                                echo '   <tbody><tr>';
+                             /*    if( $table->r_status == '0')
+                                {
+                                    $status = 'Pending';
+                                }
+                                else{
+                                    $status = 'Cleared';
+                                } */
+                                echo 
+                                '<td>'.$table->materialID.'</td><td>'.$table->materialName.'</td>'.'</td>
+                                <td>'.$table->categoryName.'</td><td>'.$table->quantity.'</td>';
+                                
+                                     if ($table->quantity<30) {
+                                       // echo "<h1 style='color:green;'>Material Quatity is low</h1>";
+                                     echo   '<td style="color:red;">'.'Product Quantity is low'.'</td>';
+                                      
+                                        } else{
+                                            echo   '<td style="color:green;">'.'Product Quantity is okay'.'</td>';
+                                           
+                                        }  
+                                        //$conn->close();                         
+                                    // header("Refresh:0; url=addItems.php");
+                               
+                                echo '</tr>';
+
+                
+                             
+                           
+                  
+                            }
+                            echo ' </tbody>
+                            <tfoot>
+                            <tr>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>  
+                          
+                              <th></th>
+                            </tr>
+                            </tfoot>
+                          </table>';                    
+                        ?>
+        </div>
+    </section>
+    
 
     <!-- Main content -->
     <section class="content">
@@ -302,22 +390,22 @@
             <div class="modal-body">
               <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title" align="center">Make a Material Request</h3>
+                <h3 class="card-title" align="center">Make a Customer Request</h3>
               </div>
                 <div class="card-body">
                     <div class="row">
                   <div class="col-sm-4">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Material Request ID</label>
-                        <input type="text" class="form-control" name="materialrequestID"  placeholder="Enter Tracking ID ...">
+                        <label>Product ID</label>
+                        <input type="text" class="form-control" name="ProductID"  placeholder="Enter Tracking ID ...">
                       </div>
                     </div>
                   <div class="col-sm-4">
                       <!-- text input current_timestamp()  CURRENT_TIMESTAMP   SELECT * FROM `irs`.`categorytable` WHERE `categoryID` = 'CAT101'-->
                       <div class="form-group">
-                        <label>Material Name</label>
-                        <input type="text" class="form-control" name="materialName"  placeholder="Enter Name of Material...">
+                        <label>Product Name</label>
+                        <input type="text" class="form-control" name="ProductName"  placeholder="Enter Name of Product...">
                         
                         </select>
                       </div>
@@ -357,17 +445,12 @@
                       </div>
                     </div>
                     </div>
-                    <div class="col-sm-12">
-                      <!-- text input -->
-                      <div class="form-group">
-                        <label>Requesting Department</label>
-                        <input type="text" class="form-control" name="department" placeholder="Enter ...">
-                      </div>
-                    </div>
+                  
                   
                 </div>
             </div>
-            </div>          
+            </div>    
+
              <?php
 
             require("../db/config.php");
@@ -378,18 +461,18 @@
                 //CURRENT_TIMESTAMP
                             
 
-                                if (!empty($_POST["materialrequestID"]) && !empty($_POST["materialName"])  
-                                && !empty($_POST["authority"])  && !empty($_POST["department"]) && !empty($_POST["userID"]))
+                                if (!empty($_POST["ProductID"]) && !empty($_POST["ProductName"])  
+                                && !empty($_POST["authority"])  && !empty($_POST["userID"]))
                                 {                                       
 
-                                    $materialrequestID = $_POST['materialrequestID'];
-                                    $materialName = $_POST['materialName'];
+                                    $productName = $_POST['ProductName'];
+                                    $productName = $_POST['ProductName'];
                                     $authority = $_POST['authority'];
-                                    $department = $_POST['department'];
+                                    //$requestDate = $_POST['department'];
                                     // $requestStatus = $_POST['requestStatus'];
                                     $userID = $_POST['userID'];
 
-                                    $iSql = " INSERT INTO `materialRequestTable` (`materialrequestID`, `materialName`,`authority`, `department`,`userID`)  VALUES ('$materialrequestID', '$materialName','$authority', '$department','$userID') ";
+                                    $iSql = " INSERT INTO `productTable` (`ProductID`, `ProductName`,`authority`,`userID`)  VALUES ('$ProductID', '$ProductName','$authority','$userID') ";
  
                                     
                                     echo $iSql;
