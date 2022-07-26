@@ -70,7 +70,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Procurement System | </title>
+  <title>IRS | </title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -313,61 +313,10 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <!-- //the green add button is here -->
-              <h3 class="card-title">Users Table</h3> <button class="btn btn-success btn-sm" style="margin-left:1%" data-toggle="modal" data-target="#add"><i class="fa fa-plus"> Add</i></button>
-              
-              <!-- the form target for adding user is here -->
-
-
-
-
-              <?php
-                                  require('../db/config.php');
-                                if (isset($_POST['aDetSub']))
-                                {
-                                    if ( $_POST["ditems"] !="Select Item" && !empty($_POST["aDet"]) && !empty($_POST["aDetRefId"]))
-                                    {                                       
-                                        $dItem = $_POST["ditems"];
-                                        $dName = $_POST["aDet"];
-                                        $dRef = $_POST["aDetRefId"];
-
-                                        $dSql = " INSERT INTO `product`(`productId`, `description`, `categoryCode`) VALUES ('$dRef', '$dName', '$dItem') ";
-                                        
-                                        echo $dSql;
-
-                                        $dResult = mysqli_query($conn, $dSql); 
-
-                                        if (!$dResult) {
-                                        printf("Errormessage: %s\n", mysqli_error($conn));
-                                        }
-                                        
-                                    
-                                        $conn->close();
-                                        echo "<h1 style='color:green;'>Added</h1>";
-                                        header("Refresh:0; url=addItems.php");
-                                    }
-                                    else{
-                                        echo "<h5 style='color:RED;'>Can't be Empty!</h5>";
-                                    }
-                                }
-                            ?>
-
-
-
-
-              <div class="modal fade show" id="add" aria-modal="true">
-                <div class="modal-dialog modal-md">
-
-                      <form role="form">
+        <!-- real one is here to add -->
+            <form role="form" action="usermanagement.php" name="add" id="add" method="post">
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -380,65 +329,281 @@
                         <h3 class="card-title">Add User</h3>
                       </div>
                         <div class="card-body">
-                          <div class="row">
-                            <div class="col-sm-12">
+
+                        <div class="row">
+                          <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Username</label>
+                            <input type="text" class="form-control"  name="username" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                        </div>
+                          <div class="col-sm-6">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Fullname</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+                            <label for="exampleInputEmail1">Password</label>
+                            <input type="text" class="form-control"  name="password" id="exampleInputEmail1" placeholder="Enter ...">
                           </div>
                           </div>
                         </div>
+
+
+                        <div class="row">
+                          <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Serial Number</label>
+                            <input type="number" class="form-control"  name="serialnumber" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                        </div>
+                          <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Full Name</label>
+                            <input type="text"  name="fullname" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                          </div>
+                        </div>
+
+                       
+
                           <div class="row">
                           <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Contact</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+                            <label for="exampleInputEmail1">Phone Number</label>
+                            <input type="number" class="form-control"  name="phonenumber" id="exampleInputEmail1" placeholder="Enter ...">
                           </div>
                         </div>
                           <div class="col-sm-6">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Designation</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+                            <label for="exampleInputEmail1">Email</label>
+                            <input type="email" class="form-control"  name="email" id="exampleInputEmail1" placeholder="Enter ...">
                           </div>
                           </div>
                         </div>
+
                         <div class="row">
                           <div class="col-sm-6">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Department</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+                            <label for="exampleInputEmail1">Department ID</label>
+                                                <input type="number"  name="department" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
                           </div>
                         </div>
                         <div class="col-sm-6">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Category</label>
-                            <select class="form-control">
-                                  <option>Staff</option>
-                                  <option>Management</option>
+                            <label for="exampleInputEmail1">Role</label>
+                            <select class="form-control"  name="role">
+                                  <option value="">Select Option</option>
+                                  <option value="Performing Authority 1">Performing Authority 1</option>
+                                  <option value="Performing Authority 2">Performing Authority 2</option>
+                                  <option value="Verifying Authority">Verifying Authority</option>
+                                  <option value="Authorizing Authority 1">Authorizing Authority 1</option>
+                                  <option value="Authorizing Authority 2">Authorizing Authority 2</option>
                                 </select>
                           </div>
                         </div>
                       </div>
-                      <div class="row">
+
+
+
+                    </div>
+                    </div>
+                    </div>
+
+
+                    <?php
+                                  require('../db/config.php');
+                                if (isset($_POST['btnAdd']))
+                                {
+                                    if ( $_POST["role"] !="Select Option" && !empty($_POST["username"]) 
+                                    && !empty($_POST["password"]) && !empty($_POST["serialnumber"]) 
+                                    && !empty($_POST["fullname"])&& !empty($_POST["phonenumber"]) 
+                                    && !empty($_POST["email"])&& !empty($_POST["department"]))
+                                    {                                       
+                                        $role = $_POST["role"];
+                                        $username = $_POST["username"];
+                                        $password = $_POST["password"];
+                                        $serialnumber = $_POST["serialnumber"];
+                                        $fullname = $_POST["fullname"];
+                                        $phonenumber = $_POST["phonenumber"];
+                                        $email = $_POST["email"];
+                                        $department = $_POST["department"];
+
+                                        $dSql = " INSERT INTO `userTable`(`userserialnumber`, `username`, `password`,`fullname`, `phonenumber`, `email`,`userrole`, `departmentid`) 
+                                        VALUES ('$serialnumber', '$username', '$password','$fullname', '$phonenumber', '$email', '$role', '$department') ";
+                                        
+                                        echo $dSql;
+
+                                        $dResult = mysqli_query($conn, $dSql); 
+
+                                        if (!$dResult) {
+                                        printf("Errormessage: %s\n", mysqli_error($conn));
+                                        }
+                                        
+                                    
+                                        $conn->close();
+                                        echo "<h1 style='color:green;'>Added</h1>";
+                                        header("Refresh:0; url=usermanagement.php");
+                                    }
+                                    else{
+                                        echo "<h5 style='color:RED;'>Can't be Empty!</h5>";
+                                    }
+                                }
+                            ?>
+
+
+
+
+                    <div class="modal-footer justify-content-between">
+                      <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
+                      <button type="submit" class="btn btn-primary" name="btnAdd">Save</button>
+                    </div>
+                  </div>
+                      </form>
+              </div>
+                              </section>
+
+   
+   
+                              <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <!-- //the green add button is here -->
+              <h3 class="card-title">Users Table</h3> 
+            <!--   <button class="btn btn-success btn-sm" style="margin-left:1%" 
+              data-toggle="modal" data-target="#add"><i class="fa fa-plus"> Add</i></button> -->
+              
+              <!-- the form target for adding user is here -->
+
+
+              <div class="modal fade show" id="add" aria-modal="true">
+                <div class="modal-dialog modal-md">
+
+                      <form role="form" action="usermanagement.php" name="add" id="add" method="post">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="card card-primary">
+                      <div class="card-header">
+                        <h3 class="card-title">Add User</h3>
+                      </div>
+                        <div class="card-body">
+
+                        <div class="row">
+                          <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Username</label>
+                            <input type="text" class="form-control"  name="username" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                        </div>
+                          <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Password</label>
+                            <input type="text" class="form-control"  name="password" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                          </div>
+                        </div>
+
+
+                        <div class="row">
+                          <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Serial Number</label>
+                            <input type="number" class="form-control"  name="serialnumber" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                        </div>
+                          <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Full Name</label>
+                            <input type="text"  name="fullname" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                          </div>
+                        </div>
+
+
+     <!--                      <div class="row">
+                            <div class="col-sm-12">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Fullname</label>
+                            <input type="text" class="form-control" name= "fullname" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                          </div>
+                        </div> -->
+
+                       
+
+                          <div class="row">
+                          <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Phone Number</label>
+                            <input type="number" class="form-control"  name="phonenumber" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                        </div>
+                          <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Email</label>
+                            <input type="email" class="form-control"  name="email" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Department ID</label>
+                                                <input type="number"  name="department" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Role</label>
+                            <select class="form-control"  name="role">
+                                  <option value="">Select Option</option>
+                                  <option value="Performing Authority 1">Performing Authority 1</option>
+                                  <option value="Performing Authority 2">Performing Authority 2</option>
+                                  <option value="Verifying Authority">Verifying Authority</option>
+                                  <option value="Authorizing Authority 1">Authorizing Authority 1</option>
+                                  <option value="Authorizing Authority 2">Authorizing Authority 2</option>
+                                </select>
+                          </div>
+                        </div>
+                      </div>
+
+      <!--                 <div class="row">
+
                           <div class="col-sm-6">
                           <div class="form-group">
                             <label for="exampleInputEmail1">Username</label>
                             <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
                           </div>
                         </div>
+
                         <div class="col-sm-6">
                           <div class="form-group">
                             <label for="exampleInputEmail1">Password</label>
                             <input type="password" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
                           </div>
                         </div>
-                      </div>
+
+                      </div> -->
+
                     </div>
                     </div>
                     </div>
+
+
+
+
+
+
                     <div class="modal-footer justify-content-between">
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save</button>
+                      <button type="submit" class="btn btn-primary" name="btnAdd">Save</button>
                     </div>
                   </div>
                       </form>
@@ -448,21 +613,7 @@
             </div>
             <!-- /.card-header -->
 
-            <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3><i class="fa fa-palette"></i> 65</h3>
-
-                <p>Total Items</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-
+           
 <!-- fetching from usertable -->
           <?php
                            require('../db/config.php');
@@ -492,6 +643,7 @@
                             <th>Username</th>
                             <th>Password</th>
                             <th>Full Name</th>
+                            <th>Role</th>
                             <th>Email Address</th>
                           
                         
@@ -510,7 +662,7 @@
                                 } */
                                 echo 
                                 '<td>'.$table->prefix.$table->userID.$table->userSerialNumber.'</td><td>'.$table->username.'</td>'.'<td>'.$table->password.'</td>'.'</td>
-                                <td>'.$table->fullname.'</td>'.'</td><td>'.$table->email.'</td><td>'.'<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit"><i class="fa fa-edit"></i></button> <button class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>'.'</td>';
+                                <td>'.$table->fullname.'</td><td>'.$table->userRole.'</td>'.'</td><td>'.$table->email.'</td><td>'.'<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit"><i class="fa fa-edit"></i></button> <button class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>'.'</td>';
                                 echo '</tr>';
                             }
                             echo ' </tbody>
@@ -520,6 +672,7 @@
                             <th>Username</th>
                             <th>Password</th>
                             <th>Full Name</th>
+                            <th>Role</th>
                             <th>Email Address</th>
                           
                               <th></th>

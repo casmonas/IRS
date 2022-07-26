@@ -318,7 +318,7 @@
                       <div class="form-group">
                         <label>Select Type</label>
                         <select class="form-control" name="requestType" id="requestType">
-                        <option value="t">Select Request</option>
+                        <option value="">Select Request</option>
                           <option value="Expense Request">Expense Request</option>
                           <option value="Welfare Request">Welfare Request</option>
                           <option value="Leave Request">Leave Request</option>
