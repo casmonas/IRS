@@ -50,7 +50,7 @@
 
     else{       
 
-        if (( time() - $_SESSION['last_login_timestamp'])> 300)
+        if (( time() - $_SESSION['last_login_timestamp'])> 5000)
         {
             header('Location: logout.php');   
         }

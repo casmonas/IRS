@@ -360,7 +360,7 @@
                             }
 
                             // $s1=" SELECT t2.req_order_id,  t1.* FROM req_offer AS t1 INNER JOIN req_offer_items AS t2 WHERE t1.r_id = t2.req_order_id ";
-                            $s1=" SELECT * FROM requestTable";
+                            $s1=" SELECT * FROM materialrequestTable";
                             // echo $s1;
                             $jn1=getTableDataFromDB($s1);
                             //echo $jsn;

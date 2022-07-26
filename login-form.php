@@ -90,57 +90,73 @@
     // start session
     //session_start();
 
+    if( isset($_POST['btnLogin'])){
+      require('db/config.php');
+
+      $u = $_POST['username'];
+      $p = $_POST['password'];
+
+      if(empty($u)) {
+        $error['username'] = "*Username should be filled.";
+    }
+
+    // check whether $password is empty or not
+    if(empty($p)) {
+        $error['password'] = "*Password should be filled.";
+    }
+
+
+      $sql = "SELECT username,password,userRole FROM userTable WHERE username='$u' AND password='$p'";
+    
+      $result = mysqli_query($conn, $sql);     
+      $row = mysqli_fetch_row($result);
+    
+
+      if( $row[0] === $u && $row[1] === $p && $row[2] === "requester" )
+      {
+          session_start();
+          $_SESSION['userid'] = $u;
+          $_SESSION['utype'] = "requester";
+          $_SESSION['username'] = session_id();
+          $_SESSION['last_login_timestamp'] = time();
+          header("Location: public/dashboard.php");                
+      }
+      else if ( $row[0] === $u && $row[1] === $p && $row[2] === "moderator"){
+          session_start();
+          $_SESSION['userid'] = $u;            
+          $_SESSION['utype'] = "moderator";
+          $_SESSION['username'] = session_id();
+          $_SESSION['last_login_timestamp'] = time();
+          header("Location: moderator.php");   
+      }
+      else if ( $row[0] === $u && $row[1] === $p && $row[2] === "accounts"){
+          session_start();
+          $_SESSION['userid'] = $u;            
+          $_SESSION['utype'] = "accounts";
+          $_SESSION['username'] = session_id();
+          $_SESSION['last_login_timestamp'] = time();
+          header("Location: accounts.php");   
+      }
+      else if ( $row[0] === $u && $row[1] === $p && $row[2] === "admin"){
+          session_start();
+          $_SESSION['userid'] = $u;
+          $_SESSION['utype'] = "admin";
+          $_SESSION['username'] = session_id();
+          $_SESSION['last_login_timestamp'] = time();
+          header("Location: admin/admindashboard.php");   
+      }
+      else
+      {
+          $msg = "Incorrect Username or Password";
+          header("Location: login-form.php?msg=$msg");
+      }
+    }else{
+
+    }
+
     if ($_POST)
     {
-        require('db/config.php');
-
-        $u = $_POST['username'];
-        $p = $_POST['password'];
-
-        $sql = "SELECT username,password,userRole FROM userTable WHERE username='$u' AND password='$p'";
-      
-        $result = mysqli_query($conn, $sql);     
-        $row = mysqli_fetch_row($result);
-      
-
-        if( $row[0] === $u && $row[1] === $p && $row[2] === "requester" )
-        {
-            session_start();
-            $_SESSION['userid'] = $u;
-            $_SESSION['utype'] = "requester";
-            $_SESSION['username'] = session_id();
-            $_SESSION['last_login_timestamp'] = time();
-            header("Location: public/dashboard.php");                
-        }
-        else if ( $row[0] === $u && $row[1] === $p && $row[2] === "moderator"){
-            session_start();
-            $_SESSION['userid'] = $u;            
-            $_SESSION['utype'] = "moderator";
-            $_SESSION['username'] = session_id();
-            $_SESSION['last_login_timestamp'] = time();
-            header("Location: moderator.php");   
-        }
-        else if ( $row[0] === $u && $row[1] === $p && $row[2] === "accounts"){
-            session_start();
-            $_SESSION['userid'] = $u;            
-            $_SESSION['utype'] = "accounts";
-            $_SESSION['username'] = session_id();
-            $_SESSION['last_login_timestamp'] = time();
-            header("Location: accounts.php");   
-        }
-        else if ( $row[0] === $u && $row[1] === $p && $row[2] === "admin"){
-            session_start();
-            $_SESSION['userid'] = $u;
-            $_SESSION['utype'] = "admin";
-            $_SESSION['username'] = session_id();
-            $_SESSION['last_login_timestamp'] = time();
-            header("Location: admin/admindashboard.php");   
-        }
-        else
-        {
-            $msg = "Incorrect Username or Password";
-            header("Location: login-form.php?msg=$msg");
-        }
+       
     
     }
 

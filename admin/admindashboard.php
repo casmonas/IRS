@@ -50,7 +50,7 @@
 
     else{       
 
-        if (( time() - $_SESSION['last_login_timestamp'])> 300)
+        if (( time() - $_SESSION['last_login_timestamp'])> 5000)
         {
             header('Location: ../logout.php');   
         }
@@ -147,11 +147,11 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
+       <!--  <div class="image">
           <img src="../dist/img/admin.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Chika Simon</a>
+        </div> -->
+        <div class="image">
+          <a href="#" class="d-block" ><h6 class="fa fa-users"> <?=strtoupper($uid);?></h6></a>  
         </div>
       </div>
 
@@ -376,7 +376,7 @@
 
     <section>
 
-    <script>
+   <!--  <script>
         function notifyFunc() {
             var x = document.getElementById("notify-content");
             if (x.style.display === "none") {
@@ -385,7 +385,7 @@
                 x.style.display = "none";
             }
         }
-    </script>
+    </script> -->
   <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-danger">
@@ -416,7 +416,7 @@
                             }
 
                             // $s1=" SELECT t2.req_order_id,  t1.* FROM req_offer AS t1 INNER JOIN req_offer_items AS t2 WHERE t1.r_id = t2.req_order_id ";
-                            $s1=" SELECT * FROM requestTable";
+                            $s1=" SELECT * FROM materialrequestTable";
                             // echo $s1;
                             $jn1=getTableDataFromDB($s1);
                             //echo $jsn;

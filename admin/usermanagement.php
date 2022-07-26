@@ -50,7 +50,7 @@
 
     else{       
 
-        if (( time() - $_SESSION['last_login_timestamp'])> 300)
+        if (( time() - $_SESSION['last_login_timestamp'])> 5000)
         {
             header('Location: ../logout.php');   
         }
@@ -322,93 +322,252 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
+              <!-- //the green add button is here -->
               <h3 class="card-title">Users Table</h3> <button class="btn btn-success btn-sm" style="margin-left:1%" data-toggle="modal" data-target="#add"><i class="fa fa-plus"> Add</i></button>
               
-              <div class="modal fade show" id="add" aria-modal="true">
-        <div class="modal-dialog modal-md">
+              <!-- the form target for adding user is here -->
 
-              <form role="form">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Add User</h3>
-              </div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-12">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Fullname</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+
+
+
+              <?php
+                                  require('../db/config.php');
+                                if (isset($_POST['aDetSub']))
+                                {
+                                    if ( $_POST["ditems"] !="Select Item" && !empty($_POST["aDet"]) && !empty($_POST["aDetRefId"]))
+                                    {                                       
+                                        $dItem = $_POST["ditems"];
+                                        $dName = $_POST["aDet"];
+                                        $dRef = $_POST["aDetRefId"];
+
+                                        $dSql = " INSERT INTO `product`(`productId`, `description`, `categoryCode`) VALUES ('$dRef', '$dName', '$dItem') ";
+                                        
+                                        echo $dSql;
+
+                                        $dResult = mysqli_query($conn, $dSql); 
+
+                                        if (!$dResult) {
+                                        printf("Errormessage: %s\n", mysqli_error($conn));
+                                        }
+                                        
+                                    
+                                        $conn->close();
+                                        echo "<h1 style='color:green;'>Added</h1>";
+                                        header("Refresh:0; url=addItems.php");
+                                    }
+                                    else{
+                                        echo "<h5 style='color:RED;'>Can't be Empty!</h5>";
+                                    }
+                                }
+                            ?>
+
+
+
+
+              <div class="modal fade show" id="add" aria-modal="true">
+                <div class="modal-dialog modal-md">
+
+                      <form role="form">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="card card-primary">
+                      <div class="card-header">
+                        <h3 class="card-title">Add User</h3>
+                      </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-sm-12">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Fullname</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                          </div>
+                        </div>
+                          <div class="row">
+                          <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Contact</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                        </div>
+                          <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Designation</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Department</label>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Category</label>
+                            <select class="form-control">
+                                  <option>Staff</option>
+                                  <option>Management</option>
+                                </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Username</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
                   </div>
-                  </div>
+                      </form>
                 </div>
-                  <div class="row">
-                  <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Contact</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
-                  </div>
-                </div>
-                  <div class="col-sm-6">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Designation</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
-                  </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Department</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Category</label>
-                    <select class="form-control">
-                          <option>Staff</option>
-                          <option>Management</option>
-                        </select>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                  <div class="col-sm-6">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Username</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
-                  </div>
-                </div>
-              </div>
-            </div>
-            </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-          </div>
-              </form>
-        </div>
         <!-- /.modal-dialog -->
-      </div>
+              </div>       <!-- the form target for adding user ends here -->
             </div>
             <!-- /.card-header -->
+
+            <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3><i class="fa fa-palette"></i> 65</h3>
+
+                <p>Total Items</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+<!-- fetching from usertable -->
+          <?php
+                           require('../db/config.php');
+                            function getTableDataFromDB($s)
+                            {
+                              require('../db/config.php');
+                                $res1 = mysqli_query($conn, $s)or die(mysqli_error());
+                                $ar=array();
+                                while($r = mysqli_fetch_assoc($res1)) {
+                                    $ar[]=$r;
+                                }
+                                return json_encode($ar);
+                            }
+
+                            // $s1=" SELECT t2.req_order_id,  t1.* FROM req_offer AS t1 INNER JOIN req_offer_items AS t2 WHERE t1.r_id = t2.req_order_id ";
+                            $s1=" SELECT * FROM usertable";
+                            // echo $s1;
+                            $jn1=getTableDataFromDB($s1);
+                            //echo $jsn;
+                            $jr1=json_decode($jn1);
+
+                      
+                            echo '<table id="example1" class="table table-bordered table-striped">';
+                            echo "   <thead>
+                            <tr>
+                            <th>Serial Number</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Full Name</th>
+                            <th>Email Address</th>
+                          
+                        
+                              <th></th>
+                            </tr>
+                            </thead>";
+                            foreach($jr1 as $table)
+                            {
+                                echo '   <tbody><tr>';
+                             /*    if( $table->r_status == '0')
+                                {
+                                    $status = 'Pending';
+                                }
+                                else{
+                                    $status = 'Cleared';
+                                } */
+                                echo 
+                                '<td>'.$table->prefix.$table->userID.$table->userSerialNumber.'</td><td>'.$table->username.'</td>'.'<td>'.$table->password.'</td>'.'</td>
+                                <td>'.$table->fullname.'</td>'.'</td><td>'.$table->email.'</td><td>'.'<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit"><i class="fa fa-edit"></i></button> <button class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>'.'</td>';
+                                echo '</tr>';
+                            }
+                            echo ' </tbody>
+                            <tfoot>
+                            <tr>
+                            <th>Serial Number</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Full Name</th>
+                            <th>Email Address</th>
+                          
+                              <th></th>
+                            </tr>
+                            </tfoot>
+                          </table>';                    
+                        ?>
+
+<!-- edit user begins here -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
+
+
+
+            <?php
+                                  require('../db/config.php');
+                                if (isset($_POST['aDetSub']))
+                                {
+                                    if ( $_POST["ditems"] !="Select Item" && !empty($_POST["aDet"]) && !empty($_POST["aDetRefId"]))
+                                    {                                       
+                                        $dItem = $_POST["ditems"];
+                                        $dName = $_POST["aDet"];
+                                        $dRef = $_POST["aDetRefId"];
+
+                                        $dSql = " INSERT INTO `product`(`productId`, `description`, `categoryCode`) VALUES ('$dRef', '$dName', '$dItem') ";
+                                        
+                                        echo $dSql;
+
+                                        $dResult = mysqli_query($conn, $dSql); 
+
+                                        if (!$dResult) {
+                                        printf("Errormessage: %s\n", mysqli_error($conn));
+                                        }
+                                        
+                                    
+                                        $conn->close();
+                                        echo "<h1 style='color:green;'>Added</h1>";
+                                        header("Refresh:0; url=addItems.php");
+                                    }
+                                    else{
+                                        echo "<h5 style='color:RED;'>Can't be Empty!</h5>";
+                                    }
+                                }
+                            ?>
+
+
+
+
+        <!--       <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>Fullname</th>
@@ -445,7 +604,7 @@
                   <th></th>
                 </tr>
                 </tfoot>
-              </table>
+              </table> -->
               <div class="modal fade show" id="edit" aria-modal="true">
         <div class="modal-dialog modal-md">
               <form role="form">

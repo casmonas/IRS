@@ -3,7 +3,7 @@
     $serverName = "localhost";
     $dbUserName = "root";
     $dbPassword = "admin";
-    $dbName = "irs";
+    $dbName = "hk_irs";
     $msg = "";
 
 
