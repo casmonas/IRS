@@ -190,7 +190,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="requeststatus.php" class="nav-link">
+                <a href="totalrequests.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Request Status</p>
                 </a>
@@ -209,13 +209,13 @@
             </a>
             <ul class="nav nav-treeview">
                <li class="nav-item">
-                <a href="itemmanagement.php" class="nav-link">
+                <a href="manageproducts.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Management</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="itemcategory.php" class="nav-link">
+                <a href="productcategory.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Category</p>
                 </a>
@@ -223,52 +223,6 @@
             </ul>
           </li>
 
-
-        <!--   <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-shopping-cart"></i>
-              <p>
-               Purchase
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="order.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Order</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="request.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Request</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="orderdetail.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Order Detail</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="requestdetail.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Request Detail</p>
-                </a>
-              </li>
-            </ul>
-          </li> -->
-
-<!-- 
-          <li class="nav-item has-treeview">
-            <a href="unit.php" class="nav-link">
-              <i class="nav-icon fas fa-gamepad"></i>
-              <p>
-                Unit
-              </p>
-            </a>
-          </li> -->
 
 
           <li class="nav-item has-treeview">

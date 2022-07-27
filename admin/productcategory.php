@@ -50,9 +50,9 @@
 
     else{       
 
-        if (( time() - $_SESSION['last_login_timestamp'])> 300)
+        if (( time() - $_SESSION['last_login_timestamp'])> 5000)
         {
-            header('Location: logout.php');   
+            header('Location: ../logout.php');   
         }
 
         else
@@ -146,7 +146,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <  <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
        <!--  <div class="image">
           <img src="../dist/img/admin.jpg" class="img-circle elevation-2" alt="User Image">
         </div> -->
@@ -161,7 +161,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            <a href="admindashboard.php" class="nav-link">
+            <a href="admindashboard.php" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -173,8 +173,9 @@
               <i class="nav-icon fas fa-building"></i><p>Department
                   </p></a>
           </li>
+
           <li class="nav-item has-treeview">
-            <a href="proplan.php" class="nav-link active">
+            <a href="proplan.php" class="nav-link">
               <i class="nav-icon fas fa-clone"></i>
               <p>
                 Request
@@ -189,13 +190,12 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="requeststatus.php" class="nav-link">
+                <a href="totalrequests.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Request Status</p>
                 </a>
               </li>
             </ul>
-
           </li>
 
 
@@ -223,52 +223,6 @@
             </ul>
           </li>
 
-
-        <!--   <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-shopping-cart"></i>
-              <p>
-               Purchase
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="order.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Order</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="request.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Request</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="orderdetail.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Order Detail</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="requestdetail.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Request Detail</p>
-                </a>
-              </li>
-            </ul>
-          </li> -->
-
-<!-- 
-          <li class="nav-item has-treeview">
-            <a href="unit.php" class="nav-link">
-              <i class="nav-icon fas fa-gamepad"></i>
-              <p>
-                Unit
-              </p>
-            </a>
-          </li> -->
 
 
           <li class="nav-item has-treeview">
@@ -301,12 +255,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Total Request</h1>
+            <h1 class="m-0 text-dark"> Products Detail</h1>
             <div class="userName"><p>Welcome, <span><?=$uid?></span></p></div>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Total Request</a></li>
+              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -314,38 +268,11 @@
     </div>
     <!-- /.content-header -->
 
-    <!-- Main content -->
-    
  
 
+
+
     <section>
-
-    <script>
-        function notifyFunc() {
-            var x = document.getElementById("notify-content");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-    </script>
-  <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3><i class="fa fa-palette"></i> 65</h3>
-
-                <p>Total Request</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer"><i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-
-
           <?php
                            require('../db/config.php');
                             function getTableDataFromDB($s)
@@ -360,7 +287,8 @@
                             }
 
                             // $s1=" SELECT t2.req_order_id,  t1.* FROM req_offer AS t1 INNER JOIN req_offer_items AS t2 WHERE t1.r_id = t2.req_order_id ";
-                            $s1=" SELECT * FROM materialrequestTable";
+                            // last semicolon at the end of this query has casued me problem twice
+                            $s1="SELECT c.* , p.* FROM categoryTable c INNER JOIN productsTable p ON c.categoryID=p.categoryID";
                             // echo $s1;
                             $jn1=getTableDataFromDB($s1);
                             //echo $jsn;
@@ -369,13 +297,11 @@
                       
                             echo '<table id="example1" class="table table-bordered table-striped">';
                             echo "   <thead>
-                            <tr>
-                            <th>RequestID</th>
-                            <th>RequestType</th>
-                            <th>RequestTime</th>
-                            <th>RequestStatus</th>
-                            <th>UserID</th>
-                        
+                            <tr>                      
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                         
                               <th></th>
                             </tr>
                             </thead>";
@@ -390,18 +316,16 @@
                                     $status = 'Cleared';
                                 } */
                                 echo 
-                                '<td>'.$table->requestID.'</td><td>'.$table->requestType.'</td>'.'</td>
-                                <td>'.$table->requestTime.'</td>'.'</td><td>'.$table->requestStatus.'</td><td>'.$table->userID.'</td>';
+                                '<td>'.$table->productName.'</td><td>'.$table->categoryName.'</td>'.'</td>
+                                <td>'.$table->quantity.'</td>';
                                 echo '</tr>';
                             }
                             echo ' </tbody>
                             <tfoot>
                             <tr>
-                              <th>RequestID</th>
-                              <th>RequestType</th>
-                              <th>RequestTime</th>
-                              <th>RequestStatus</th>
-                              <th>UserID</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
                           
                               <th></th>
                             </tr>

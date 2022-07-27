@@ -78,7 +78,6 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bbootstrap 4 -->
-  <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   <link rel="stylesheet" href="../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
@@ -101,12 +100,12 @@
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-
  <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
+
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -120,8 +119,8 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header"></span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <button class="btn btn-danger btn-sm btn-lg" onclick="window.location.href='./logout.php'" style="width:100%"><i class="fa fa-power-off"></i> Logout</button>
+          <a href="../logout.php" class="dropdown-item">
+            <button class="btn btn-danger btn-sm btn-lg" style="width:100%"><i class="fa fa-power-off"></i> Logout</button>
           </a>
        
           <div class="dropdown-divider"></div>
@@ -141,17 +140,18 @@
     <!-- Brand Logo -->
     <a href="../index.php" class="brand-link">
       <span class="brand-text font-weight-light"><h2 align="center"><strong>IRS</strong></h2></span>
+
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
+       <!--  <div class="image">
           <img src="../dist/img/admin.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Chika Simon</a>
+        </div> -->
+        <div class="image">
+          <a href="#" class="d-block" ><h6 class="fa fa-users"> <?=strtoupper($uid);?></h6></a>  
         </div>
       </div>
 
@@ -160,19 +160,20 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item ">
-            <a href="admindashboard.php" class="nav-link">
+          <li class="nav-item has-treeview menu-open">
+            <a href="admindashboard.php" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview ">
+          <li class="nav-item">
             <a href="department.php" class="nav-link">
               <i class="nav-icon fas fa-building"></i><p>Department
                   </p></a>
           </li>
+
           <li class="nav-item has-treeview">
             <a href="proplan.php" class="nav-link">
               <i class="nav-icon fas fa-clone"></i>
@@ -183,26 +184,26 @@
     
               <ul class="nav nav-treeview">
                <li class="nav-item">
-                <a href="requestdetail.php" class="nav-link">
+                <a href="totalrequests.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Request Detail</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="requeststatus.php" class="nav-link">
+                <a href="totalrequests.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Request Status</p>
                 </a>
               </li>
             </ul>
-
           </li>
+
 
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-palette"></i>
               <p>
-                Product
+                Products
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -214,7 +215,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="itemcategory.php" class="nav-link">
+                <a href="productcategory.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Category</p>
                 </a>
@@ -222,18 +223,18 @@
             </ul>
           </li>
 
-     
+
+
           <li class="nav-item has-treeview">
-            <a href="usermanagement.php" class="nav-link active">
+            <a href="usermanagement.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 User Management
               </p>
             </a>
           </li>
-
           <li class="nav-item has-treeview">
-            <a href="../public/voucher.php" class="nav-link">
+            <a href="voucher.php" class="nav-link">
               <i class="nav-icon fas fa-sticky-note"></i>
               <p>
                 Voucher
@@ -254,31 +255,32 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">User Management</h1>
+            <h1 class="m-0 text-dark">Manage Products</h1>
+            <div class="userName"><p>Welcome, <span><?=$uid?></span></p></div>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-              <li class="breadcrumb-item active">User Management</li>
-
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-    
 
-   <section class="content">
-   <div class="container-fluid">
-			<!-- Small boxes (Stat box) -->
-			<div class="row">
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+      
+
+<!-- Small boxes (Stat box) -->
+        <div class="row">
 			<div class="col-12">
 			<div class="card">
 
       <div class="card-header">
         <!-- //the green add button is here -->
-        <h3 class="card-title">Users Table</h3> 
+        <h3 class="card-title">Products Table</h3> 
       <!--   <button class="btn btn-success btn-sm" style="margin-left:1%" 
         data-toggle="modal" data-target="#add"><i class="fa fa-plus"> Add</i></button> -->
       </div>
@@ -288,106 +290,80 @@
 			   
 	
 
-      <div class="card-body">
-                                <form role="form" action="usermanagement.php" name="add" id="add" method="post">
+                            <div class="card-body">
+                                <form role="form" action="manageproducts.php" name="add" id="add" method="post">
+
+                               
                                 <div class="card card-primary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Add User</h3>
+                                          <div class="card-header">
+                                              <h3 class="card-title">Add Product</h3>
+                                          </div>
+
+                               
+                                <div class="row">
+                                  <div class="col-sm-4">
+
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Product Name</label>
+                                  <input type="text" class="form-control"  name="productname" id="productname" placeholder="Enter product name...">
+                                  </div>
+
+                                </div>
+                                 </div>
+
+                                <div class="row">
+                                  <div class="col-sm-4">
+
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Quantity</label>
+                                  <input type="text" class="form-control"  name="quantity" id="quantity" placeholder="Enter quantity...">
+                                  </div>
+
+                                </div>
                                 </div>
 
-                                <div class="card-body">
-                                <div class="row">
-									  <div class="col-sm-6">
-									<div class="form-group">
-										<label for="exampleInputEmail1">Username</label>
-										<input type="text" class="form-control"  name="username" id="exampleInputEmail1" placeholder="Enter ...">
-									  </div>
-									</div>
-									  <div class="col-sm-6">
-									  <div class="form-group">
-										<label for="exampleInputEmail1">Password</label>
-										<input type="text" class="form-control"  name="password" id="exampleInputEmail1" placeholder="Enter ...">
-									  </div>
-									  </div>
-									</div>
+                                  <div class="col-sm-4">
+                                  <div class="form-group">
 
-                  <div class="row">
-									  <div class="col-sm-6">
-									<div class="form-group">
-										<label for="exampleInputEmail1">Serial Number</label>
-										<input type="number" class="form-control"  name="serialnumber" id="exampleInputEmail1" placeholder="Enter ...">
-									  </div>
-									</div>
-									  <div class="col-sm-6">
-									  <div class="form-group">
-										<label for="exampleInputEmail1">Full Name</label>
-										<input type="text"  name="fullname" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
-									  </div>
-									  </div>
-									</div>
+                                  <label>Category</label>
+                                  <!-- <input type="text" class="form-control"  name="quantity" id="quantity" placeholder="Enter Category ..."> -->
+                                  <select name="category">
+                                  <option value="">Select Category</option>
+                                    <option value=1>Ware House Product</option>
+                                    <option value=2>Raw Material</option>
+                                    <option value=3>Construction Material</option>
+                                    <option value=4>Repair Material</option>
+                                  </select>
+
+                                  </div>
+                                  </div>
+
+                    
+
+									      
+
+                            
 
 
 
-									<div class="row">
-									  <div class="col-sm-6">
-									<div class="form-group">
-										<label for="exampleInputEmail1">Phone Number</label>
-										<input type="number" class="form-control"  name="phonenumber" id="exampleInputEmail1" placeholder="Enter ...">
-									  </div>
-									</div>
-									  <div class="col-sm-6">
-									  <div class="form-group">
-										<label for="exampleInputEmail1">Email</label>
-										<input type="email" class="form-control"  name="email" id="exampleInputEmail1" placeholder="Enter ...">
-									  </div>
-									  </div>
-									</div>
+								
 
-                  <div class="row">
-                  <div class="col-sm-6">
-									  <div class="form-group">
-										<label for="exampleInputEmail1">Department ID</label>
-															<input type="number"  name="department" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
-									  </div>
-									</div>
-
-                  <div  class="col-sm-6"> 
-                    <div class="form-group">
-                    <label for="exampleInputEmail1">Role</label>
-                    <select class="form-control"  name="role">
-											  <option value="">Select Option</option>
-											  <option value="Performing Authority 1">Performing Authority 1</option>
-											  <option value="Performing Authority 2">Performing Authority 2</option>
-											  <option value="Verifying Authority">Verifying Authority</option>
-											  <option value="Authorizing Authority 1">Authorizing Authority 1</option>
-											  <option value="Authorizing Authority 2">Authorizing Authority 2</option>
-											</select>
-                    </div>
-                  </div>
-
-                  </div>
 
 
                   <?php
                                   require('../db/config.php');
                                 if (isset($_POST['btnAdd']))
                                 {
-                                    if ( $_POST["role"] !="Select Option" && !empty($_POST["username"]) 
-                                    && !empty($_POST["password"]) && !empty($_POST["serialnumber"]) 
-                                    && !empty($_POST["fullname"])&& !empty($_POST["phonenumber"]) 
-                                    && !empty($_POST["email"])&& !empty($_POST["department"]))
+                                    if ( $_POST["category"] !="Select Category" && !empty($_POST["productname"]) 
+                                    && !empty($_POST["quantity"]))
                                     {                                       
-                                        $role = $_POST["role"];
-                                        $username = $_POST["username"];
-                                        $password = $_POST["password"];
-                                        $serialnumber = $_POST["serialnumber"];
-                                        $fullname = $_POST["fullname"];
-                                        $phonenumber = $_POST["phonenumber"];
-                                        $email = $_POST["email"];
-                                        $department = $_POST["department"];
+                                        $productname = $_POST["productname"];
+                                        $quantity = $_POST["quantity"];
+                                        $category = $_POST["category"];
+                                       
 
-                                        $dSql = " INSERT INTO `userTable`(`userserialnumber`, `username`, `password`,`fullname`, `phonenumber`, `email`,`userrole`, `departmentid`) 
-                                        VALUES ('$serialnumber', '$username', '$password','$fullname', '$phonenumber', '$email', '$role', '$department') ";
+                                        $dSql = " INSERT INTO `productsTable`(`productName`, `quantity`,`categoryID`) 
+                                        VALUES ('$productname', '$quantity','$category') ";
                                         
                                         echo $dSql;
 
@@ -400,7 +376,7 @@
                                     
                                         $conn->close();
                                         echo "<h1 style='color:green;'>Added</h1>";
-                                        header("Refresh:0; url=usermanagement.php");
+                                        header("Refresh:0; url=manageproducts.php");
                                     }
                                     else{
                                         echo "<h5 style='color:RED;'>Can't be Empty!</h5>";
@@ -410,138 +386,105 @@
 
 
 
-          <div class="modal-footer justify-content-between">
+                    <div class="modal-footer justify-content-between">
                       <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
                       <button type="submit" class="btn btn-primary" name="btnAdd">Save</button>
                     </div>
 
-                                </div>
-                                <!-- card body -->
+                          
+                             
 
-                              </div>
-                                </form>
-
-      </div>
-
-      </div>
-      </div>
-      </div>
-    </div>
-   </section>
-
- 
-   
-                              <!-- Main content -->
-    <section class="content">
-		<div class="container-fluid">
-			<!-- Small boxes (Stat box) -->
-			<div class="row">
-			<div class="col-12">
-			  <div class="card">
-				<div class="card-header">
-				  <!-- //the green add button is here -->
-				  <h3 class="card-title">Users Table</h3> 
-				<!--   <button class="btn btn-success btn-sm" style="margin-left:1%" 
-				  data-toggle="modal" data-target="#add"><i class="fa fa-plus"> Add</i></button> -->
-			
-				</div>
-				<!-- /.card-header -->
-
-			   
-	
+       
+       
+       
+       
+       
+       
+                      </form>
+       
+                  </div><!-- /.card body -->
 
 
-				<div class="card-body">
+      
+  
 
-
-
-
-			  <?php
-							   require('../db/config.php');
-								function getTableDataFromDB($s)
-								{
-								  require('../db/config.php');
-									$res1 = mysqli_query($conn, $s)or die(mysqli_error());
-									$ar=array();
-									while($r = mysqli_fetch_assoc($res1)) {
-										$ar[]=$r;
-									}
-									return json_encode($ar);
-								}
-
-								// $s1=" SELECT t2.req_order_id,  t1.* FROM req_offer AS t1 INNER JOIN req_offer_items AS t2 WHERE t1.r_id = t2.req_order_id ";
-								$s1=" SELECT * FROM usertable";
-								// echo $s1;
-								$jn1=getTableDataFromDB($s1);
-								//echo $jsn;
-								$jr1=json_decode($jn1);
-
-						  
-								echo '<table id="example1" class="table table-bordered table-striped">';
-								echo "   <thead>
-								<tr>
-								<th>Serial Number</th>
-								<th>Username</th>
-								<th>Password</th>
-								<th>Full Name</th>
-								<th>Role</th>
-								<th>Email Address</th>
-							  
-							
-								  <th></th>
-								</tr>
-								</thead>";
-								foreach($jr1 as $table)
-								{
-									echo '   <tbody><tr>';
-								 /*    if( $table->r_status == '0')
-									{
-										$status = 'Pending';
-									}
-									else{
-										$status = 'Cleared';
-									} */
-									echo 
-									'<td>'.$table->prefix.$table->userID.$table->userSerialNumber.'</td><td>'.$table->username.'</td>'.'<td>'.$table->password.'</td>'.'</td>
-									<td>'.$table->fullname.'</td><td>'.$table->userRole.'</td>'.'</td><td>'.$table->email.'</td><td>'.'<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit"><i class="fa fa-edit"></i></button> <button class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>'.'</td>';
-									echo '</tr>';
-								}
-								echo ' </tbody>
-								<tfoot>
-								<tr>
-								<th>Serial Number</th>
-								<th>Username</th>
-								<th>Password</th>
-								<th>Full Name</th>
-								<th>Role</th>
-								<th>Email Address</th>
-							  
-								  <th></th>
-								</tr>
-								</tfoot>
-							  </table>';                    
-				?>
-
-
-
-
-		
-				</div>
-				<!-- /.card-body -->
-			  </div>
-			  <!-- /.card -->
-			</div>
-		  </div>
-			<!-- /.row -->
-			<!-- Main row -->
+      </div><!-- /.card -->
+      </div><!-- /.col 12 -->
+      </div><!-- /.row -->
         
-		</div><!-- /.container-fluid -->
-  </section>
+      </div><!-- /.container-fluid -->
+    </section>
+ 
+
+
+
+    <section>
+          <?php
+                           require('../db/config.php');
+                            function getTableDataFromDB($s)
+                            {
+                              require('../db/config.php');
+                                $res1 = mysqli_query($conn, $s)or die(mysqli_error());
+                                $ar=array();
+                                while($r = mysqli_fetch_assoc($res1)) {
+                                    $ar[]=$r;
+                                }
+                                return json_encode($ar);
+                            }
+
+                            // $s1=" SELECT t2.req_order_id,  t1.* FROM req_offer AS t1 INNER JOIN req_offer_items AS t2 WHERE t1.r_id = t2.req_order_id ";
+                            $s1="SELECT * FROM productsTable";
+                            // echo $s1;
+                            $jn1=getTableDataFromDB($s1);
+                            //echo $jsn;
+                            $jr1=json_decode($jn1);
+
+                      
+                            echo '<table id="example1" class="table table-bordered table-striped">';
+                            echo "   <thead>
+                            <tr>
+                            <th>productID</th>
+                            <th>productName</th>
+                            <th>Quantity</th>
+                         
+                              <th></th>
+                            </tr>
+                            </thead>";
+                            foreach($jr1 as $table)
+                            {
+                                echo '   <tbody><tr>';
+                             /*    if( $table->r_status == '0')
+                                {
+                                    $status = 'Pending';
+                                }
+                                else{
+                                    $status = 'Cleared';
+                                } */
+                                echo 
+                                '<td>'.$table->productID.'</td><td>'.$table->productName.'</td>'.'</td>
+                                <td>'.$table->quantity.'</td>';
+                                echo '</tr>';
+                            }
+                            echo ' </tbody>
+                            <tfoot>
+                            <tr>
+                              <th>productID</th>
+                              <th>productName</th>
+                              <th>Quantity</th>
+                             
+                          
+                              <th></th>
+                            </tr>
+                            </tfoot>
+                          </table>';                    
+                        ?>
+
+        </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Footer<a href="http://adminlte.io"></a>.</strong>
+    <strong>Footer<a href="https://chikateck.ng"></a> | Made with love by Chika</strong>
     
     <div class="float-right d-none d-sm-inline-block">
       
@@ -572,12 +515,12 @@
 <script src="../plugins/sparklines/sparkline.js"></script>
 <!-- JQVMap -->
 <script src="../plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="../jqvmap/maps/jquery.vmap.usa.js"></script>
+<script src="../plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
 <!-- jQuery Knob Chart -->
 <script src="../plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
 <script src="../plugins/moment/moment.min.js"></script>
-<script src="../plugins/daterangepicker/daterangepicker.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->
@@ -590,24 +533,9 @@
 <script src="../dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../dist/js/demo.js"></script>
-<script src="../plugins/datatables/jquery.dataTables.js"></script>
-<script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-
-<script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-    });
-  });
-</script>
 </body>
 </html>
+
 
 <?php
 
