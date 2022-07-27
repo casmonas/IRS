@@ -4,7 +4,7 @@
     session_start();
 
     $valid_session = isset($_SESSION['username']) ? $_SESSION['username'] === session_id() : FALSE;
-    if (!$valid_session || $_SESSION['utype'] != "requester") {
+    if (!$valid_session || $_SESSION['utype'] != "VERIFYING AUTHORITY") {
         
         
 ?>
@@ -155,11 +155,11 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
+       <!--  <div class="image">
           <img src="../dist/img/admin.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Chika Simon</a>
+        </div> -->
+        <div class="image">
+          <a href="#" class="d-block" ><h6 class="fa fa-users"> <?=strtoupper($uid);?></h6></a>  
         </div>
       </div>
 
@@ -176,14 +176,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+         <!--  <li class="nav-item">
             <a href="department.php" class="nav-link">
               <i class="nav-icon fas fa-building"></i><p>Department
                   </p></a>
-          </li>
+          </li> -->
 
           <li class="nav-item has-treeview">
-            <a href="proplan.php" class="nav-link active">
+            <a href="proplan.php" class="nav-link">
               <i class="nav-icon fas fa-clone"></i>
               <p>
                 Request
@@ -192,9 +192,21 @@
     
               <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="dashboard.php" class="nav-link">
+                <a href="internalrequest.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Make Request</p>
+                  <p>Make Internal Request</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="materialrequest.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Make Material Request</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="customerrequest.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Make Customer Request</p>
                 </a>
               </li>
                <li class="nav-item">
@@ -394,14 +406,8 @@
               </div>
                 <div class="card-body">
                     <div class="row">
-                  <div class="col-sm-4">
-                      <!-- text input -->
-                      <div class="form-group">
-                        <label>Product ID</label>
-                        <input type="text" class="form-control" name="ProductID"  placeholder="Enter Tracking ID ...">
-                      </div>
-                    </div>
-                  <div class="col-sm-4">
+               
+                  <div class="col-sm-12">
                       <!-- text input current_timestamp()  CURRENT_TIMESTAMP   SELECT * FROM `irs`.`categorytable` WHERE `categoryID` = 'CAT101'-->
                       <div class="form-group">
                         <label>Product Name</label>
@@ -410,40 +416,24 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-sm-4">
-                      <!-- text input -->
-                      <div class="form-group">
-                        <label>Request Time</label>
-                        <input type="time" class="form-control" name="requestTime" placeholder="00.00">
-                      </div>
-                    </div>
-                  </div>
+               
                     <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Requested By</label>
-                        <input type="text" class="form-control" name="userID" placeholder="Enter Your ID">
+                        <label>Department</label>
+                        <input type="text" class="form-control" name="requestDepartment" placeholder="Enter Your Department">
                       </div>
                     </div>
-                  <div class="col-sm-4">
+                  <div class="col-sm-6">
                       <!-- text input -->
                       <div class="form-group">
                         <label>Request Date</label>
-                        <input type="date" class="form-control" name="requestDate" placeholder="00.00">
+                        <input type="date" class="form-control" name="userID" placeholder="Enter Your ID">
                       </div>
                     </div>
-                    <div class="col-sm-4">
-                      <!-- text input -->
-                      <div class="form-group">
-                        <label>Executing Authority</label>
-                        <select class="form-control" name="authority" id="authority">
-                        <option value="">Select Authority</option>
-                          <option value="Performing Authority 1">Performing Authority 1</option>
-                          <option value="Performing Authority 2">Performing Authority 2</option>
-                        </select>
-                      </div>
-                    </div>
+                  
+
                     </div>
                   
                   
@@ -461,18 +451,18 @@
                 //CURRENT_TIMESTAMP
                             
 
-                                if (!empty($_POST["ProductID"]) && !empty($_POST["ProductName"])  
-                                && !empty($_POST["authority"])  && !empty($_POST["userID"]))
+                                if ( !empty($_POST["ProductName"])  
+                                && !empty($_POST["requestDepartment"])  && !empty($_POST["userID"]))
                                 {                                       
 
                                     $productName = $_POST['ProductName'];
-                                    $productName = $_POST['ProductName'];
-                                    $authority = $_POST['authority'];
+                                    $requestDepartment = $_POST['requestDepartment'];
+                                    $authority = $_POST['userID'];
                                     //$requestDate = $_POST['department'];
                                     // $requestStatus = $_POST['requestStatus'];
                                     $userID = $_POST['userID'];
 
-                                    $iSql = " INSERT INTO `productTable` (`ProductID`, `ProductName`,`authority`,`userID`)  VALUES ('$ProductID', '$ProductName','$authority','$userID') ";
+                                    $iSql = " INSERT INTO `customerrequesttable` (`requestType`, `requestDepartment`,`userID`)  VALUES ('$ProductID', '$ProductName','$authority','$userID') ";
  
                                     
                                     echo $iSql;
@@ -503,6 +493,13 @@
               <button type="submit" class="btn btn-primary" name="btnSave">Send</button>
             </div>
           </div>
+              </form>
+
+
+              <form action="upload.php" method="post" enctype="multipart/form-data">
+                Select image to upload:
+                <input type="file" name="fileToUpload" id="fileToUpload">
+                <input type="submit" value="Upload Image" name="submit">
               </form>
       
    
