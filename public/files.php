@@ -305,46 +305,56 @@
       <div class="container-fluid">
        
      <!-- Form starts here -->
-              <form  action="uploads.php" method="post" enctype="multipart/form-data">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
+         
+              <?php
 
-            <div class="modal-body">
-              <div class="card card-primary">
+                if (isset($_SESSION['message']) && $_SESSION['message'])
+
+                {
+
+                printf('<b>%s</b>', $_SESSION['message']);
+
+                unset($_SESSION['message']);
+
+                }
+
+                ?>
+
+<form method="POST" action="uploads.php" enctype="multipart/form-data">
+
+<div class="modal-body">
+<div class="card card-primary">
+
               <div class="card-header">
                 <h3 class="card-title" align="center">Upload</h3>
               </div>
-                <div class="card-body">
-                    <div class="row">
-               
-                  <div class="col-sm-12">
-                      <!-- text input current_timestamp()  CURRENT_TIMESTAMP   SELECT * FROM `irs`.`categorytable` WHERE `categoryID` = 'CAT101'-->
-                      <div class="form-group">
-                        <label> Select file to upload:</label>
-                        <input type="file" class="form-control" name="fileToUpload" id="fileToUpload" >
-                        
-                     
-                      </div>
-                    </div>
-               
-              
-                  
-                  
-                </div>
-            </div>
-            </div>    
+
+<div class="card-body">
+<div class="row">
+
+<div class="col-sm-12">
+<div class="form-group">
+  <!-- <span>Upload a File:</span> -->
+  <label> Select file to upload:</label>
+  <input type="file" name="uploadedFile"  class="form-control"/>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
 
 
-            <div class="modal-footer justify-content-between">
-              <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
-              <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-            </div>
-          </div>
-              </form>
+<div class="modal-footer justify-content-between">
+<input type="submit" name="uploadBtn" value="Upload the File" class="btn btn-primary"/>
+</div>
+</form>
+
+
+
+
 
 
             <!--   <form action="uploads.php" method="post" class="btn btn-primary" enctype="multipart/form-data">
