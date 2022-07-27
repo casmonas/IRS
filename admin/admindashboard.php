@@ -168,11 +168,11 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+      <!--     <li class="nav-item">
             <a href="department.php" class="nav-link">
               <i class="nav-icon fas fa-building"></i><p>Department
                   </p></a>
-          </li>
+          </li> -->
 
           <li class="nav-item has-treeview">
             <a href="proplan.php" class="nav-link">

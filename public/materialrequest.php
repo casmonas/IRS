@@ -240,12 +240,12 @@
                   <p>Management</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="itemcategory.php" class="nav-link">
+                 <!--    <li class="nav-item">
+                <a href="productcategory.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Category</p>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li>
 
