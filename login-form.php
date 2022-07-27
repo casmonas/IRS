@@ -112,11 +112,11 @@
       $row = mysqli_fetch_row($result);
     
 
-      if( $row[0] === $u && $row[1] === $p && $row[2] === "requester" )
+      if( $row[0] === $u && $row[1] === $p && $row[2] === "VERIFYING AUTHORITY" )
       {
           session_start();
           $_SESSION['userid'] = $u;
-          $_SESSION['utype'] = "requester";
+          $_SESSION['utype'] = "VERIFYING AUTHORITY";/* this is the key */
           $_SESSION['username'] = session_id();
           $_SESSION['last_login_timestamp'] = time();
           header("Location: public/dashboard.php");                

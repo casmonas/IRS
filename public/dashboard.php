@@ -4,7 +4,7 @@
     session_start();
 
     $valid_session = isset($_SESSION['username']) ? $_SESSION['username'] === session_id() : FALSE;
-    if (!$valid_session || $_SESSION['utype'] != "requester") {
+    if (!$valid_session || $_SESSION['utype'] != "VERIFYING AUTHORITY") {
         
         
 ?>
