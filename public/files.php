@@ -176,7 +176,7 @@
               </p>
             </a>
           </li>
-     <!--  <li class="nav-item">
+         <!--  <li class="nav-item">
             <a href="department.php" class="nav-link">
               <i class="nav-icon fas fa-building"></i><p>Department
                   </p></a>
@@ -226,7 +226,7 @@
 
 
           <li class="nav-item has-treeview">
-          <a href="productsandmaterials.php" class="nav-link">
+            <a href="productsandmaterials.php" class="nav-link">
               <i class="nav-icon fas fa-palette"></i>
               <p>
                 Products & Materials
@@ -252,7 +252,6 @@
             
 
           
-     
           <li class="nav-item has-treeview">
             <a href="files.php" class="nav-link">
               <i class="nav-icon fas fa-sticky-note"></i>
@@ -285,12 +284,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Materials Management</h1>
+            <h1 class="m-0 text-dark">Files Upload</h1>
             <div class="userName"><p>Welcome, <span><?=$uid?></span></p></div>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -298,109 +297,65 @@
     </div>
     <!-- /.content-header -->
 
-    <section class="content">
-      <div class="container-fluid">
-        <?php
-                           require('../db/config.php');
-                            function getTableDataFromDB($s)
-                            {
-                              require('../db/config.php');
-                                $res1 = mysqli_query($conn, $s)or die(mysqli_error());
-                                $ar=array();
-                                while($r = mysqli_fetch_assoc($res1)) {
-                                    $ar[]=$r;
-                                }
-                                return json_encode($ar);
-                            }
-
-                            // $s1=" SELECT t2.req_order_id,  t1.* FROM req_offer AS t1 INNER JOIN req_offer_items AS t2 WHERE t1.r_id = t2.req_order_id ";
-                            //$s1=" SELECT * FROM materialTable";
-                            $s1= "SELECT c.* , m.* FROM categoryTable c INNER JOIN materialTable m ON c.categoryID=m.categoryID";
-                            // echo $s1;
-                            $jn1=getTableDataFromDB($s1);
-                            //echo $jsn;
-                            $jr1=json_decode($jn1);
-
-                      
-                            echo '<table id="example1" class="table table-bordered table-striped">';
-                            echo "   <thead>
-                            <tr>
-                            <th>Material ID</th>
-                            <th>Material Name</th>
-                            <th>Category</th>
-                            <th>Quantity</th>  
-                            <th>Material Level Alert</th>           
-                            </tr>
-                            </thead>";
-                            foreach($jr1 as $table)
-                            {
-                                echo '   <tbody><tr>';
-                             /*    if( $table->r_status == '0')
-                                {
-                                    $status = 'Pending';
-                                }
-                                else{
-                                    $status = 'Cleared';
-                                } */
-                                echo 
-                                '<td>'.$table->materialID.'</td><td>'.$table->materialName.'</td>'.'</td>
-                                <td>'.$table->categoryName.'</td><td>'.$table->quantity.'</td>';
-                                
-                                     if ($table->quantity<30) {
-                                       // echo "<h1 style='color:green;'>Material Quatity is low</h1>";
-                                     echo   '<td style="color:red;">'.'Material Quatity is low'.'</td>';
-                                      
-                                        } else{
-                                            echo   '<td style="color:green;">'.'Material Quatity is okay'.'</td>';
-                                           
-                                        }  
-                                        //$conn->close();                         
-                                    // header("Refresh:0; url=addItems.php");
-                               
-                                echo '</tr>';
-
-                
-                             
-                           
-                  
-                            }
-                            echo ' </tbody>
-                            <tfoot>
-                            <tr>
-                            <th>Material ID</th>
-                            <th>Material Name</th>
-                            <th>Category</th>
-                            <th>Quantity</th>  
-                          
-                              <th></th>
-                            </tr>
-                            </tfoot>
-                          </table>';                    
-                        ?>
-        </div>
-    </section>
+  
+    
 
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-
-    
        
      <!-- Form starts here -->
-              <form role="form"   method="post">
+              <form  action="uploads.php" method="post" enctype="multipart/form-data">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
 
-
-
+            <div class="modal-body">
+              <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title" align="center">Upload</h3>
+              </div>
+                <div class="card-body">
+                    <div class="row">
+               
+                  <div class="col-sm-12">
+                      <!-- text input current_timestamp()  CURRENT_TIMESTAMP   SELECT * FROM `irs`.`categorytable` WHERE `categoryID` = 'CAT101'-->
+                      <div class="form-group">
+                        <label> Select file to upload:</label>
+                        <input type="file" class="form-control" name="fileToUpload" id="fileToUpload" >
+                        
+                     
+                      </div>
+                    </div>
+               
+              
+                  
+                  
+                </div>
+            </div>
+            </div>    
 
 
             <div class="modal-footer justify-content-between">
               <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
-              <button type="submit" class="btn btn-primary" name="btnSave">Send</button>
+              <button type="submit" class="btn btn-primary" name="submit">Submit</button>
             </div>
           </div>
               </form>
 
 
+            <!--   <form action="uploads.php" method="post" class="btn btn-primary" enctype="multipart/form-data">
+                Select file to upload:
+                <input type="file" name="fileToUpload" id="fileToUpload">
+        
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                
+              </form> -->
+      
+   
         
       </div><!-- /.container-fluid -->
     </section>
@@ -408,7 +363,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Footer<a href="chikatech"></a>.</strong>
+    <strong>Footer<a href="http://adminlte.io"></a>.</strong>
     
     <div class="float-right d-none d-sm-inline-block">
       

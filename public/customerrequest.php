@@ -252,12 +252,11 @@
             
 
           
-     
           <li class="nav-item has-treeview">
-            <a href="voucher.php" class="nav-link">
+            <a href="files.php" class="nav-link">
               <i class="nav-icon fas fa-sticky-note"></i>
               <p>
-                Voucher
+                Upload
               </p>
             </a>
           </li>
@@ -496,11 +495,7 @@
               </form>
 
 
-              <form action="upload.php" method="post" enctype="multipart/form-data">
-                Select image to upload:
-                <input type="file" name="fileToUpload" id="fileToUpload">
-                <input type="submit" value="Upload Image" name="submit">
-              </form>
+           
       
    
         

@@ -2,7 +2,7 @@
 
     $serverName = "localhost";
     $dbUserName = "root";
-    $dbPassword = "admin";
+    $dbPassword = "";
     $dbName = "hk_irs";
     $msg = "";
 

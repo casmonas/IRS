@@ -252,10 +252,10 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="voucher.php" class="nav-link">
+            <a href="files.php" class="nav-link">
               <i class="nav-icon fas fa-sticky-note"></i>
               <p>
-                Voucher
+                Upload
               </p>
             </a>
           </li>

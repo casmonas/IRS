@@ -78,7 +78,7 @@
 <head>
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IRS | </title>
+  <title>IRS | Internal Request</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -253,10 +253,10 @@
           
      
           <li class="nav-item has-treeview">
-            <a href="voucher.php" class="nav-link">
+            <a href="files.php" class="nav-link">
               <i class="nav-icon fas fa-sticky-note"></i>
               <p>
-                Voucher
+                Upload
               </p>
             </a>
           </li>
