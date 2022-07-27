@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2022 at 12:36 AM
+-- Generation Time: Jul 27, 2022 at 03:30 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.5
 
@@ -126,22 +126,44 @@ INSERT INTO `materialtable` (`materialID`, `materialName`, `quantity`, `category
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `productstable`
+--
+
+CREATE TABLE `productstable` (
+  `productID` int(15) NOT NULL,
+  `productName` varchar(255) NOT NULL,
+  `quantity` int(15) NOT NULL,
+  `categoryID` int(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `productstable`
+--
+
+INSERT INTO `productstable` (`productID`, `productName`, `quantity`, `categoryID`) VALUES
+(1, 'Celophene', 530, 1),
+(2, 'Akwa', 200, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `producttable`
 --
 
 CREATE TABLE `producttable` (
   `productID` int(15) NOT NULL,
   `productName` varchar(255) NOT NULL,
-  `quantity` int(15) NOT NULL
+  `quantity` int(15) NOT NULL,
+  `categoryID` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `producttable`
 --
 
-INSERT INTO `producttable` (`productID`, `productName`, `quantity`) VALUES
-(1, 'Akwa', 200),
-(2, 'Ede', 530);
+INSERT INTO `producttable` (`productID`, `productName`, `quantity`, `categoryID`) VALUES
+(1, 'Akwa', 200, 0),
+(2, 'Ede', 530, 0);
 
 -- --------------------------------------------------------
 
@@ -215,6 +237,13 @@ ALTER TABLE `materialtable`
   ADD KEY `categoryID` (`categoryID`);
 
 --
+-- Indexes for table `productstable`
+--
+ALTER TABLE `productstable`
+  ADD PRIMARY KEY (`productID`),
+  ADD KEY `categoryID` (`categoryID`);
+
+--
 -- Indexes for table `producttable`
 --
 ALTER TABLE `producttable`
@@ -270,6 +299,12 @@ ALTER TABLE `materialtable`
   MODIFY `materialID` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `productstable`
+--
+ALTER TABLE `productstable`
+  MODIFY `productID` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `producttable`
 --
 ALTER TABLE `producttable`
@@ -308,6 +343,12 @@ ALTER TABLE `materialrequesttable`
 --
 ALTER TABLE `materialtable`
   ADD CONSTRAINT `materialtable_ibfk_1` FOREIGN KEY (`categoryID`) REFERENCES `categorytable` (`categoryID`);
+
+--
+-- Constraints for table `productstable`
+--
+ALTER TABLE `productstable`
+  ADD CONSTRAINT `productstable_ibfk_1` FOREIGN KEY (`categoryID`) REFERENCES `categorytable` (`categoryID`);
 
 --
 -- Constraints for table `usertable`
