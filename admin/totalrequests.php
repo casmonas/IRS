@@ -199,11 +199,12 @@
           </li>
 
 
+       
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-palette"></i>
               <p>
-                Products
+                Products & Materials
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -211,13 +212,19 @@
                <li class="nav-item">
                 <a href="manageproducts.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Management</p>
+                  <p>Products Management</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="managematerials.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Materials Management</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="productcategory.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Category</p>
+                  <p>Category Details</p>
                 </a>
               </li>
             </ul>
@@ -279,14 +286,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
+          <!-- <li class="nav-item has-treeview">
             <a href="voucher.php" class="nav-link">
               <i class="nav-icon fas fa-sticky-note"></i>
               <p>
                 Voucher
               </p>
             </a>
-          </li>
+          </li> -->
                   </ul>
       </nav>
       <!-- /.sidebar-menu -->

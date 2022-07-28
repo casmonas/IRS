@@ -199,11 +199,12 @@
           </li>
 
 
+       
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-palette"></i>
               <p>
-                Products
+                Products & Materials
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -211,18 +212,23 @@
                <li class="nav-item">
                 <a href="manageproducts.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Management</p>
+                  <p>Products Management</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="managematerials.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Materials Management</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="productcategory.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Category</p>
+                  <p>Category Details</p>
                 </a>
               </li>
             </ul>
           </li>
-
 
 
           <li class="nav-item has-treeview">
@@ -233,14 +239,14 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
+          <!-- <li class="nav-item has-treeview">
             <a href="voucher.php" class="nav-link">
               <i class="nav-icon fas fa-sticky-note"></i>
               <p>
                 Voucher
               </p>
             </a>
-          </li>
+          </li> -->
                   </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -274,7 +280,7 @@
       
 
 <!-- Small boxes (Stat box) -->
-        <div class="row">
+      <div class="row">
 			<div class="col-12">
 			<div class="card">
 
@@ -312,22 +318,22 @@
                                  </div>
 
                                 <div class="row">
-                                  <div class="col-sm-4">
+                               
+                                <div class="col-sm-4">
 
-                                <div class="form-group">
+                                  <div class="form-group">
                                   <label for="exampleInputEmail1">Quantity</label>
                                   <input type="text" class="form-control"  name="quantity" id="quantity" placeholder="Enter quantity...">
                                   </div>
 
                                 </div>
-                                </div>
 
-                                  <div class="col-sm-4">
+                                <div class="col-sm-4">
                                   <div class="form-group">
 
                                   <label>Category</label>
                                   <!-- <input type="text" class="form-control"  name="quantity" id="quantity" placeholder="Enter Category ..."> -->
-                                  <select name="category">
+                                  <select name="category" class="form-control">
                                   <option value="">Select Category</option>
                                     <option value=1>Ware House Product</option>
                                     <option value=2>Raw Material</option>
@@ -337,6 +343,9 @@
 
                                   </div>
                                   </div>
+                                </div>
+
+                                  
 
                     
 

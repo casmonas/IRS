@@ -338,13 +338,13 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-sm-4">
-                      <!-- text input -->
+                  <!--   <div class="col-sm-4">
+                      text input
                       <div class="form-group">
                         <label>Request Time</label>
                         <input type="time" class="form-control" name="requestTime" placeholder="00.00">
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                     <div class="row">
                     <div class="col-sm-4">
@@ -357,23 +357,23 @@
                   <div class="col-sm-4">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Request Date</label>
-                        <input type="date" class="form-control" name="requestDate" placeholder="00.00">
+                        <label>Requesting Department</label>
+                        <input type="text" class="form-control" name="department" placeholder="Enter your department">
                       </div>
                     </div>
                     <div class="col-sm-4">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Processed By</label>
-                        <input type="text" class="datetimepicker form-control" name="authority" placeholder="Enter ...">
+                        <label>To Be Processed By</label>
+                        <input type="text" class="datetimepicker form-control" name="authority" placeholder="Who will respond to this">
                       </div>
                     </div>
                     </div>
                     <div class="col-sm-12">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Requesting Department</label>
-                        <input type="text" class="form-control" name="department" placeholder="Enter ...">
+                        <label>Requesting Reason</label>
+                        <input type="text" class="form-control" name="reason" placeholder="Why are you placing the request">
                       </div>
                     </div>
                   
@@ -402,7 +402,7 @@
                                     // $requestStatus = $_POST['requestStatus'];
                                     $userID = $_POST['userID'];
 
-                                    $iSql = " INSERT INTO `requestTable` (`requestID`, `requestType`,`userID`)  VALUES ('$requestID', '$requestType','$userID') ";
+                                    $iSql = " INSERT INTO `internalrequestTable` (`requestID`, `requestType`,`userID`)  VALUES ('$requestID', '$requestType','$userID') ";
  
                                     
                                     echo $iSql;

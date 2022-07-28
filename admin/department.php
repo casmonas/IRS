@@ -120,7 +120,6 @@
           <span class="dropdown-item dropdown-header"></span>
           <div class="dropdown-divider"></div>
           <a href="../logout.php" class="dropdown-item">
-            <!--onclick="window.location.href='../logout.php'"  can use this instead of the href-->
             <button class="btn btn-danger btn-sm btn-lg" style="width:100%"><i class="fa fa-power-off"></i> Logout</button>
           </a>
        
@@ -200,6 +199,7 @@
           </li>
 
 
+         
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-palette"></i>
@@ -262,7 +262,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
+            <h1 class="m-0 text-dark"> User Departments</h1>
             <div class="userName"><p>Welcome, <span><?=$uid?></span></p></div>
           </div><!-- /.col -->
           <div class="col-sm-6">
@@ -275,94 +275,12 @@
     </div>
     <!-- /.content-header -->
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3><i class="fa fa-users"></i> 150</h3>
-
-                <p>Total Users</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3><i class="fa fa-shopping-cart"></i>53</h3>
-
-                <p>Total Products</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3><i class="fa fa-cart-plus"></i>44</h3>
-
-                <p>Total Requests</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-       
-          <!-- ./col -->
-        </div>
-        <!-- /.row -->
-        <!-- Main row -->
-        
-      </div><!-- /.container-fluid -->
-    </section>
  
 
-    <section>
-
-   <!--  <script>
-        function notifyFunc() {
-            var x = document.getElementById("notify-content");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-    </script> -->
-  <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3><i class="fa fa-palette"></i> 65</h3>
-
-                <p>Total Materials</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
 
 
+    <section class="content">
+      <div class="container-fluid">
           <?php
                            require('../db/config.php');
                             function getTableDataFromDB($s)
@@ -377,7 +295,8 @@
                             }
 
                             // $s1=" SELECT t2.req_order_id,  t1.* FROM req_offer AS t1 INNER JOIN req_offer_items AS t2 WHERE t1.r_id = t2.req_order_id ";
-                            $s1=" SELECT * FROM materialrequestTable";
+                            // last semicolon at the end of this query has casued me problem twice
+                            $s1="SELECT u.* , d.* FROM userTable u INNER JOIN departmentTable d ON u.departmentID=d.departmentID";
                             // echo $s1;
                             $jn1=getTableDataFromDB($s1);
                             //echo $jsn;
@@ -386,13 +305,14 @@
                       
                             echo '<table id="example1" class="table table-bordered table-striped">';
                             echo "   <thead>
-                            <tr>
-                            <th>RequestID</th>
-                            <th>RequestType</th>
-                            <th>RequestTime</th>
-                            <th>RequestStatus</th>
-                            <th>UserID</th>
-                        
+                            <tr>           
+                                       
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Department</th>
+                            <th>Role</th>
+                         
                               <th></th>
                             </tr>
                             </thead>";
@@ -407,18 +327,18 @@
                                     $status = 'Cleared';
                                 } */
                                 echo 
-                                '<td>'.$table->requestID.'</td><td>'.$table->requestType.'</td>'.'</td>
-                                <td>'.$table->requestTime.'</td>'.'</td><td>'.$table->requestStatus.'</td><td>'.$table->userID.'</td>';
+                                '<td>'.$table->fullname.'</td><td>'.$table->email.'</td><td>'.$table->phonenumber.'</td><td>'.$table->departmentName.'</td>'.'</td>
+                                <td>'.$table->userRole.'</td>';
                                 echo '</tr>';
                             }
                             echo ' </tbody>
                             <tfoot>
                             <tr>
-                              <th>RequestID</th>
-                              <th>RequestType</th>
-                              <th>RequestTime</th>
-                              <th>RequestStatus</th>
-                              <th>UserID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Department</th>
+                            <th>Role</th>
                           
                               <th></th>
                             </tr>
@@ -426,12 +346,13 @@
                           </table>';                    
                         ?>
 
+            </div>
         </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Footer<a href="https://chikateck.ng"></a> | Made with love by Chika</strong>
+    <strong>Footer<a href="https://github.com/casmonas"></a> | Made with love by Chika</strong>
     
     <div class="float-right d-none d-sm-inline-block">
       

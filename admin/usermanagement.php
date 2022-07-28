@@ -120,8 +120,9 @@
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header"></span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <button class="btn btn-danger btn-sm btn-lg" onclick="window.location.href='./logout.php'" style="width:100%"><i class="fa fa-power-off"></i> Logout</button>
+          <a class="dropdown-item">
+          <!-- onclick="window.location.href='./logout.php'" makes it look for logout.php in the same folder -->
+            <button class="btn btn-danger btn-sm btn-lg" onclick="window.location.href='../logout.php'" style="width:100%"><i class="fa fa-power-off"></i> Logout</button>
           </a>
        
           <div class="dropdown-divider"></div>
@@ -198,11 +199,12 @@
 
           </li>
 
+       
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-palette"></i>
               <p>
-                Product
+                Products & Materials
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -210,13 +212,19 @@
                <li class="nav-item">
                 <a href="manageproducts.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Management</p>
+                  <p>Products Management</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="itemcategory.php" class="nav-link">
+                <a href="managematerials.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Category</p>
+                  <p>Materials Management</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="productcategory.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Category Details</p>
                 </a>
               </li>
             </ul>
@@ -232,14 +240,14 @@
             </a>
           </li>
 
-          <li class="nav-item has-treeview">
+          <!-- <li class="nav-item has-treeview">
             <a href="../public/voucher.php" class="nav-link">
               <i class="nav-icon fas fa-sticky-note"></i>
               <p>
                 Voucher
               </p>
             </a>
-          </li>
+          </li> -->
                   </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -346,8 +354,14 @@
                   <div class="row">
                   <div class="col-sm-6">
 									  <div class="form-group">
-										<label for="exampleInputEmail1">Department ID</label>
-															<input type="number"  name="department" class="form-control" id="exampleInputEmail1" placeholder="Enter ...">
+										<label for="exampleInputEmail1">Department</label>
+															<!-- <input type="number"  name="department" class="form-control" id="exampleInputEmail1" placeholder="Enter ..."> -->
+                        <select class="form-control"  name="department">
+											  <option value="">Select Option</option>
+											  <option value=1>Management</option>
+											  <option value=2>Admin</option>
+											  <option value=3>Tech</option>
+											</select>
 									  </div>
 									</div>
 
@@ -375,7 +389,7 @@
                                     if ( $_POST["role"] !="Select Option" && !empty($_POST["username"]) 
                                     && !empty($_POST["password"]) && !empty($_POST["serialnumber"]) 
                                     && !empty($_POST["fullname"])&& !empty($_POST["phonenumber"]) 
-                                    && !empty($_POST["email"])&& !empty($_POST["department"]))
+                                    && !empty($_POST["email"])&& $_POST["department"] !="Select Option")
                                     {                                       
                                         $role = $_POST["role"];
                                         $username = $_POST["username"];

@@ -4,6 +4,9 @@
     session_start();
 
     $valid_session = isset($_SESSION['username']) ? $_SESSION['username'] === session_id() : FALSE;
+
+  
+    //(!$valid_session || $_SESSION['utype'] != "VERIFYING AUTHORITY")
     if (!$valid_session || $_SESSION['utype'] != "VERIFYING AUTHORITY") {
         
         
@@ -320,7 +323,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0 text-dark">Dashboard</h1>
-            <div class="userName"><p>Welcome, <span><?=$uid?></span></p></div>
+            <div class="userName"><p>Welcome, <span><?=$_SESSION['utype']?></span></p></div>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">

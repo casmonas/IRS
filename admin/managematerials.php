@@ -120,7 +120,6 @@
           <span class="dropdown-item dropdown-header"></span>
           <div class="dropdown-divider"></div>
           <a href="../logout.php" class="dropdown-item">
-            <!--onclick="window.location.href='../logout.php'"  can use this instead of the href-->
             <button class="btn btn-danger btn-sm btn-lg" style="width:100%"><i class="fa fa-power-off"></i> Logout</button>
           </a>
        
@@ -262,8 +261,8 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
-            <div class="userName"><p>Welcome, <span><?=$uid?></span></p></div>
+            <h1 class="m-0 text-dark">Manage Materials</h1>
+            <div class="userName"><p>Welcome, <span><?=$uid?> & <?=$ut?></span></p></div>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -278,91 +277,157 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
+      
+
+<!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3><i class="fa fa-users"></i> 150</h3>
+			<div class="col-12">
+			<div class="card">
 
-                <p>Total Users</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3><i class="fa fa-shopping-cart"></i>53</h3>
+      <div class="card-header">
+        <!-- //the green add button is here -->
+        <h3 class="card-title">Materials Table</h3> 
+      <!--   <button class="btn btn-success btn-sm" style="margin-left:1%" 
+        data-toggle="modal" data-target="#add"><i class="fa fa-plus"> Add</i></button> -->
+      </div>
+     
+				<!-- /.card-header -->
 
-                <p>Total Products</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3><i class="fa fa-cart-plus"></i>44</h3>
+			   
+	
 
-                <p>Total Requests</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
+                            <div class="card-body">
+                                <form role="form" action="managematerials.php" name="add" id="add" method="post">
+
+                               
+                                <div class="card card-primary">
+
+                                          <div class="card-header">
+                                              <h3 class="card-title">Add Material</h3>
+                                          </div>
+
+                               
+                                <div class="row">
+
+                                  <div class="col-sm-4">
+                                  <div class="form-group">
+                                  <label for="exampleInputEmail1">Material Name</label>
+                                  <input type="text" class="form-control"  name="productname" id="productname" placeholder="Enter product name...">
+                                  </div>
+                                  </div>
+
+                                </div>
+
+                                <div class="row">
+                                  
+                                <div class="col-sm-4">
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Quantity</label>
+                                  <input type="text" class="form-control"  name="quantity" id="quantity" placeholder="Enter quantity...">
+                                </div>
+                                </div>
+
+                                  <div class="col-sm-4">
+                                  <div class="form-group">
+
+                                  <label>Category</label>
+                                  <!-- <input type="text" class="form-control"  name="quantity" id="quantity" placeholder="Enter Category ..."> -->
+                                  <select name="category" class="form-control">
+                                    <option value="">Select Category</option>
+                                    <option value=1>Ware House Product</option>
+                                    <option value=2>Raw Material</option>
+                                    <option value=3>Construction Material</option>
+                                    <option value=4>Repair Material</option>
+                                  </select>
+
+                                  </div>
+                                  </div>
+
+                                </div>
+
+                                
+
+                    
+
+									      
+
+                            
+
+
+
+								
+
+
+
+                  <?php
+                                  require('../db/config.php');
+                                if (isset($_POST['btnAdd']))
+                                {
+                                    if ( $_POST["category"] !="Select Category" && !empty($_POST["productname"]) 
+                                    && !empty($_POST["quantity"]))
+                                    {                                       
+                                        $productname = $_POST["productname"];
+                                        $quantity = $_POST["quantity"];
+                                        $category = $_POST["category"];
+                                       
+
+                                        $dSql = " INSERT INTO `materialTable`(`materialName`, `quantity`,`categoryID`) 
+                                        VALUES ('$productname', '$quantity','$category') ";
+                                        
+                                        echo $dSql;
+
+                                        $dResult = mysqli_query($conn, $dSql); 
+
+                                        if (!$dResult) {
+                                        printf("Errormessage: %s\n", mysqli_error($conn));
+                                        }
+                                        
+                                    
+                                        $conn->close();
+                                        echo "<h3 style='color:green;'>Added</h3>";
+                                        header("Refresh:0; url=managematerials.php");
+                                    }
+                                    else{
+                                        echo "<h5 style='color:RED;'>Can't be Empty!</h5>";
+                                    }
+                                }
+                            ?>
+
+
+
+                    <div class="modal-footer justify-content-between">
+                      <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
+                      <button type="submit" class="btn btn-primary" name="btnAdd">Save</button>
+                    </div>
+
+                          
+                             
+
        
-          <!-- ./col -->
-        </div>
-        <!-- /.row -->
-        <!-- Main row -->
+       
+       
+       
+       
+       
+                      </form>
+       
+                  </div><!-- /.card body -->
+
+
+      
+  
+
+      </div><!-- /.card -->
+      </div><!-- /.col 12 -->
+      </div><!-- /.row -->
         
       </div><!-- /.container-fluid -->
     </section>
  
 
+
+
     <section>
-
-   <!--  <script>
-        function notifyFunc() {
-            var x = document.getElementById("notify-content");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-    </script> -->
-  <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3><i class="fa fa-palette"></i> 65</h3>
-
-                <p>Total Materials</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-
-
           <?php
                            require('../db/config.php');
                             function getTableDataFromDB($s)
@@ -377,7 +442,7 @@
                             }
 
                             // $s1=" SELECT t2.req_order_id,  t1.* FROM req_offer AS t1 INNER JOIN req_offer_items AS t2 WHERE t1.r_id = t2.req_order_id ";
-                            $s1=" SELECT * FROM materialrequestTable";
+                            $s1="SELECT * FROM materialTable";
                             // echo $s1;
                             $jn1=getTableDataFromDB($s1);
                             //echo $jsn;
@@ -387,12 +452,10 @@
                             echo '<table id="example1" class="table table-bordered table-striped">';
                             echo "   <thead>
                             <tr>
-                            <th>RequestID</th>
-                            <th>RequestType</th>
-                            <th>RequestTime</th>
-                            <th>RequestStatus</th>
-                            <th>UserID</th>
-                        
+                            <th>Material ID</th>
+                            <th>Material Name</th>
+                            <th>Quantity</th>
+                         
                               <th></th>
                             </tr>
                             </thead>";
@@ -407,18 +470,17 @@
                                     $status = 'Cleared';
                                 } */
                                 echo 
-                                '<td>'.$table->requestID.'</td><td>'.$table->requestType.'</td>'.'</td>
-                                <td>'.$table->requestTime.'</td>'.'</td><td>'.$table->requestStatus.'</td><td>'.$table->userID.'</td>';
+                                '<td>'.$table->materialID.'</td><td>'.$table->materialName.'</td>'.'</td>
+                                <td>'.$table->quantity.'</td>';
                                 echo '</tr>';
                             }
                             echo ' </tbody>
                             <tfoot>
                             <tr>
-                              <th>RequestID</th>
-                              <th>RequestType</th>
-                              <th>RequestTime</th>
-                              <th>RequestStatus</th>
-                              <th>UserID</th>
+                            <th>Material ID</th>
+                            <th>Material Name</th>
+                            <th>Quantity</th>
+                             
                           
                               <th></th>
                             </tr>

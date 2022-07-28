@@ -24,7 +24,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Internal Request</b>System</a>
+    <a href="index.php"><b>Internal Request</b>System</a>
   </div>
   <!-- /.login-logo -->
   <form method="POST">
@@ -110,32 +110,43 @@
     
       $result = mysqli_query($conn, $sql);     
       $row = mysqli_fetch_row($result);
+
+      //trying to know if it will work for userRole , seems to be working at the moment
+      //if not, delete and also delete if( $row[0] === $u && $row[1] === $p && $row[2] === $table->userRole to "VERIFYING AUTHORITY")
+      //and uncomment   //$_SESSION['utype'] = "VERIFYING AUTHORITY";/* this is the key */
+      $jn1=getTableDataFromDB($s1);
+      //echo $jsn;
+      $table=json_decode($jn1);
+
     
 
-      if( $row[0] === $u && $row[1] === $p && $row[2] === "VERIFYING AUTHORITY" )
+      if( $row[0] === $u && $row[1] === $p && $row[2] === $table->userRole )
       {
           session_start();
           $_SESSION['userid'] = $u;
-          $_SESSION['utype'] = "VERIFYING AUTHORITY";/* this is the key */
+          //$_SESSION['utype'] = "VERIFYING AUTHORITY";/* this is the key */
+          
+           //trying to know if this will work with the ut
+          $_SESSION['utype'] = $table->userRole;
           $_SESSION['username'] = session_id();
           $_SESSION['last_login_timestamp'] = time();
           header("Location: public/dashboard.php");                
       }
-      else if ( $row[0] === $u && $row[1] === $p && $row[2] === "moderator"){
+      else if ( $row[0] === $u && $row[1] === $p && $row[2] === "PERFORMING AUTHORITY"){
           session_start();
           $_SESSION['userid'] = $u;            
           $_SESSION['utype'] = "moderator";
           $_SESSION['username'] = session_id();
           $_SESSION['last_login_timestamp'] = time();
-          header("Location: moderator.php");   
+          header("Location: public/dashboard.php");   
       }
-      else if ( $row[0] === $u && $row[1] === $p && $row[2] === "accounts"){
+      else if ( $row[0] === $u && $row[1] === $p && $row[2] === "AUTHORIZING AUTHORITY"){
           session_start();
           $_SESSION['userid'] = $u;            
           $_SESSION['utype'] = "accounts";
           $_SESSION['username'] = session_id();
           $_SESSION['last_login_timestamp'] = time();
-          header("Location: accounts.php");   
+          header("Location: public/dashboard.php");   
       }
       else if ( $row[0] === $u && $row[1] === $p && $row[2] === "admin"){
           session_start();
