@@ -176,7 +176,7 @@
               </p>
             </a>
           </li>
-        <!--  <li class="nav-item">
+     <!--  <li class="nav-item">
             <a href="department.php" class="nav-link">
               <i class="nav-icon fas fa-building"></i><p>Department
                   </p></a>
@@ -226,7 +226,7 @@
 
 
           <li class="nav-item has-treeview">
-            <a href="productsandmaterials.php" class="nav-link">
+          <a href="productsandmaterials.php" class="nav-link">
               <i class="nav-icon fas fa-palette"></i>
               <p>
                 Products & Materials
@@ -285,12 +285,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Material Request Form</h1>
+            <h1 class="m-0 text-dark">Products Management</h1>
             <div class="userName"><p>Welcome, <span><?=$uid?></span></p></div>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -298,134 +298,100 @@
     </div>
     <!-- /.content-header -->
 
+    <section class="content">
+      <div class="container-fluid">
+        <?php
+                           require('../db/config.php');
+                            function getTableDataFromDB($s)
+                            {
+                              require('../db/config.php');
+                                $res1 = mysqli_query($conn, $s)or die(mysqli_error());
+                                $ar=array();
+                                while($r = mysqli_fetch_assoc($res1)) {
+                                    $ar[]=$r;
+                                }
+                                return json_encode($ar);
+                            }
+
+                            // $s1=" SELECT t2.req_order_id,  t1.* FROM req_offer AS t1 INNER JOIN req_offer_items AS t2 WHERE t1.r_id = t2.req_order_id ";
+                            //$s1=" SELECT * FROM materialTable";
+                            $s1= "SELECT c.* , m.* FROM categoryTable c INNER JOIN productsTable m ON c.categoryID=m.categoryID";
+                            // echo $s1;
+                            $jn1=getTableDataFromDB($s1);
+                            //echo $jsn;
+                            $jr1=json_decode($jn1);
+
+                      
+                            echo '<table id="example1" class="table table-bordered table-striped">';
+                            echo "   <thead>
+                            <tr>
+                            <th>Material ID</th>
+                            <th>Material Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>  
+                            <th>Material Level Alert</th>           
+                            </tr>
+                            </thead>";
+                            foreach($jr1 as $table)
+                            {
+                                echo '   <tbody><tr>';
+                             /*    if( $table->r_status == '0')
+                                {
+                                    $status = 'Pending';
+                                }
+                                else{
+                                    $status = 'Cleared';
+                                } */
+                                echo 
+                                '<td>'.$table->productID.'</td><td>'.$table->productName.'</td>'.'</td>
+                                <td>'.$table->categoryName.'</td><td>'.$table->quantity.'</td>';
+                                
+                                     if ($table->quantity<30) {
+                                       // echo "<h1 style='color:green;'>Material Quatity is low</h1>";
+                                     echo   '<td style="color:red;">'.'Material Quantity is low'.'</td>';
+                                      
+                                        } else{
+                                            echo   '<td style="color:green;">'.'Material Quantity is okay'.'</td>';
+                                           
+                                        }  
+                                        //$conn->close();                         
+                                    // header("Refresh:0; url=addItems.php");
+                               
+                                echo '</tr>';
+
+                
+                             
+                           
+                  
+                            }
+                            echo ' </tbody>
+                            <tfoot>
+                            <tr>
+                            <th>Material ID</th>
+                            <th>Material Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>  
+                          
+                              <th></th>
+                            </tr>
+                            </tfoot>
+                          </table>';                    
+                        ?>
+        </div>
+    </section>
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+
+    
        
      <!-- Form starts here -->
               <form role="form"   method="post">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
 
-            <div class="modal-body">
-              <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title" align="center">Make a Material Request</h3>
-              </div>
-                <div class="card-body">
-                    <div class="row">
-                  <div class="col-sm-4">
-                      <!-- text input -->
-                      <div class="form-group">
-                        <label>Material Request ID</label>
-                        <input type="text" class="form-control" name="materialrequestID"  placeholder="Enter Tracking ID ...">
-                      </div>
-                    </div>
-                  <div class="col-sm-4">
-                      <!-- text input current_timestamp()  CURRENT_TIMESTAMP   SELECT * FROM `irs`.`categorytable` WHERE `categoryID` = 'CAT101'-->
-                      <div class="form-group">
-                        <label>Material Name</label>
-                        <input type="text" class="form-control" name="materialName"  placeholder="Enter Name of Material...">
-                        
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <!-- text input -->
-                      <div class="form-group">
-                        <label>Request Time</label>
-                        <input type="time" class="form-control" name="requestTime" placeholder="00.00">
-                      </div>
-                    </div>
-                  </div>
-                    <div class="row">
-                    <div class="col-sm-4">
-                      <!-- text input -->
-                      <div class="form-group">
-                        <label>Requested By</label>
-                        <input type="text" class="form-control" name="userID" placeholder="Enter Your ID">
-                      </div>
-                    </div>
-                  <div class="col-sm-4">
-                      <!-- text input -->
-                      <div class="form-group">
-                        <label>Request Date</label>
-                        <input type="date" class="form-control" name="requestDate" placeholder="00.00">
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <!-- text input -->
-                      <div class="form-group">
-                        <label>Executing Authority</label>
-                        <select class="form-control" name="authority" id="authority">
-                        <option value="">Select Authority</option>
-                          <option value="Performing Authority 1">Performing Authority 1</option>
-                          <option value="Performing Authority 2">Performing Authority 2</option>
-                        </select>
-                      </div>
-                    </div>
-                    </div>
-                    <div class="col-sm-12">
-                      <!-- text input -->
-                      <div class="form-group">
-                        <label>Requesting Department</label>
-                        <input type="text" class="form-control" name="department" placeholder="Enter ...">
-                      </div>
-                    </div>
-                  
-                </div>
-            </div>
-            </div>          
-             <?php
 
-            require("../db/config.php");
-              if( isset($_POST['btnSave'])){
-              
-                // Create connection $conn = new mysqli($servername, $username, $password, $dbname); // Check connection if ($conn->connect_error) {   die("Connection failed: " . $conn->connect_error); }  
-                                 
-                //CURRENT_TIMESTAMP
-                            
 
-                                if (!empty($_POST["materialrequestID"]) && !empty($_POST["materialName"])  
-                                && !empty($_POST["authority"])  && !empty($_POST["department"]) && !empty($_POST["userID"]))
-                                {                                       
 
-                                    $materialrequestID = $_POST['materialrequestID'];
-                                    $materialName = $_POST['materialName'];
-                                    $authority = $_POST['authority'];
-                                    $department = $_POST['department'];
-                                    // $requestStatus = $_POST['requestStatus'];
-                                    $userID = $_POST['userID'];
-
-                                    $iSql = " INSERT INTO `materialRequestTable` (`materialrequestID`, `materialName`,`authority`, `department`,`userID`)  VALUES ('$materialrequestID', '$materialName','$authority', '$department','$userID') ";
- 
-                                    
-                                    echo $iSql;
-
-                                    $iResult = mysqli_query($conn, $iSql); 
-
-                                    if (!$iResult) {
-                                    printf("Errormessage: %s\n", mysqli_error($conn));
-                                    }
-                                    
-                                
-                                    $conn->close();
-                                    echo "<h1 style='color:green;'>Added</h1>";
-                                    // header("Refresh:0; url=addItems.php");
-                                }
-                                else{
-                                    echo "<center><h5 style='color:RED;'>You have empty fields, please check!</h5></center>";
-                                }
-                                
-              }
-              
-              
-                
-                ?>
 
             <div class="modal-footer justify-content-between">
               <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
@@ -433,8 +399,8 @@
             </div>
           </div>
               </form>
-      
-   
+
+
         
       </div><!-- /.container-fluid -->
     </section>
@@ -442,7 +408,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Footer<a href="http://adminlte.io"></a>.</strong>
+    <strong>Footer<a href="chikatech"></a>.</strong>
     
     <div class="float-right d-none d-sm-inline-block">
       

@@ -236,15 +236,15 @@
                <li class="nav-item">
                <a href="productsandmaterials.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Management</p>
+                  <p>Materials Management</p>
                 </a>
               </li>
-                 <!--    <li class="nav-item">
-                <a href="productcategory.php" class="nav-link">
+              <li class="nav-item">
+                <a href="productsmanagement.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Category</p>
+                  <p>Products Management</p>
                 </a>
-              </li> -->
+              </li>
             </ul>
           </li>
 
