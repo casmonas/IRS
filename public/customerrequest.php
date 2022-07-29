@@ -209,18 +209,18 @@
                   <p>Make Customer Request</p>
                 </a>
               </li>
-               <li class="nav-item">
-                <a href="totalrequests.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Request Detail</p>
-                </a>
-              </li>
               <li class="nav-item">
-                <a href="requeststatus.php" class="nav-link">
+                <a href="totalrequests.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Request Status</p>
                 </a>
               </li>
+              <!-- <li class="nav-item">
+                <a href="requeststatus.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Request Status</p>
+                </a>
+              </li> -->
             </ul>
           </li>
 
@@ -405,30 +405,69 @@
               </div>
                 <div class="card-body">
                     <div class="row">
-               
-                  <div class="col-sm-12">
+                  <div class="col-sm-6">
                       <!-- text input current_timestamp()  CURRENT_TIMESTAMP   SELECT * FROM `irs`.`categorytable` WHERE `categoryID` = 'CAT101'-->
                       <div class="form-group">
                         <label>Product Name</label>
                         <input type="text" class="form-control" name="ProductName"  placeholder="Enter Name of Product...">
-                        
-                        </select>
                       </div>
                     </div>
+
+                    <div class="col-sm-6">
+                      <!-- text input current_timestamp()  CURRENT_TIMESTAMP   SELECT * FROM `irs`.`categorytable` WHERE `categoryID` = 'CAT101'-->
+                      <div class="form-group">
+                        <label>Handling Authority</label>
+                        <!-- <input type="text" class="form-control" name="authority"  placeholder="Enter Handling Authority..."> -->
+                        <select class="form-control"  name="authority">
+											  <option value="">Select Authority</option>
+											  <option value="Performing Authority 1">Performing Authority 1</option>
+											  <option value="Performing Authority 2">Performing Authority 2</option>
+											  <option value="Verifying Authority">Verifying Authority</option>
+											  <option value="Authorizing Authority 1">Authorizing Authority 1</option>
+											  <option value="Authorizing Authority 2">Authorizing Authority 2</option>
+											</select>
+                      </div>
+                    </div>
+                          </div>
                
                     <div class="row">
+
                     <div class="col-sm-6">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Department</label>
+                        <label>Requesting Department</label>
                         <input type="text" class="form-control" name="requestDepartment" placeholder="Enter Your Department">
                       </div>
                     </div>
+
                   <div class="col-sm-6">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Request Date</label>
-                        <input type="date" class="form-control" name="userID" placeholder="Enter Your ID">
+                        <label>Quantity</label>
+                        <input type="number" class="form-control" name="quantity" placeholder="Enter Your ID">
+                      </div>
+                    
+                    </div>
+                  
+
+                    </div>
+
+                    <div class="row">
+
+                    <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <label>Enter Your ID</label>
+                        <input type="number" class="form-control" name="userid" placeholder="Enter Your ID">
+                      </div>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <label>Enter Tracking Number</label>
+                        <input type="number" class="form-control" name="requestID" placeholder="Enter Your ID">
                       </div>
                     </div>
                   
@@ -450,18 +489,18 @@
                 //CURRENT_TIMESTAMP
                             
 
-                                if ( !empty($_POST["ProductName"])  
-                                && !empty($_POST["requestDepartment"])  && !empty($_POST["userID"]))
+                                if ( !empty($_POST["ProductName"])  && $_POST["authority"]!="Select Authority"
+                                && !empty($_POST["requestDepartment"])  && !empty($_POST["quantity"]))
                                 {                                       
 
                                     $productName = $_POST['ProductName'];
                                     $requestDepartment = $_POST['requestDepartment'];
-                                    $authority = $_POST['userID'];
-                                    //$requestDate = $_POST['department'];
-                                    // $requestStatus = $_POST['requestStatus'];
-                                    $userID = $_POST['userID'];
+                                    $quantity = $_POST['quantity'];
+                                    $requestID = $_POST['requestID'];
+                                    $userID = $_POST['userid'];
+                                    $authority = $_POST['authority'];
 
-                                    $iSql = " INSERT INTO `customerrequesttable` (`requestType`, `requestDepartment`,`userID`)  VALUES ('$ProductID', '$ProductName','$authority','$userID') ";
+                                    $iSql = " INSERT INTO `customerrequesttable` (`requestID`,`productname`, `requestDepartment`,`quantity`,`authority`,`userID`)  VALUES ('$requestID','$productName', '$requestDepartment','$quantity','$authority','$userID') ";
  
                                     
                                     echo $iSql;
@@ -475,7 +514,7 @@
                                 
                                     $conn->close();
                                     echo "<h1 style='color:green;'>Added</h1>";
-                                    // header("Refresh:0; url=addItems.php");
+                                  header("Refresh:1; url=customerrequest.php");
                                 }
                                 else{
                                     echo "<center><h5 style='color:RED;'>You have empty fields, please check!</h5></center>";

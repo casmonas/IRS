@@ -211,18 +211,18 @@
                   <p>Make Customer Request</p>
                 </a>
               </li>
-               <li class="nav-item">
-                <a href="totalrequests.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Request Detail</p>
-                </a>
-              </li>
               <li class="nav-item">
-                <a href="requeststatus.php" class="nav-link">
+                <a href="totalrequests.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Request Status</p>
                 </a>
               </li>
+              <!-- <li class="nav-item">
+                <a href="requeststatus.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Request Status</p>
+                </a>
+              </li> -->
             </ul>
           </li>
 

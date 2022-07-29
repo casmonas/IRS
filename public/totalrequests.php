@@ -201,18 +201,18 @@
                   <p>Make Customer Request</p>
                 </a>
               </li>
-               <li class="nav-item">
-                <a href="totalrequests.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Request Detail</p>
-                </a>
-              </li>
               <li class="nav-item">
-                <a href="requeststatus.php" class="nav-link">
+                <a href="totalrequests.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Request Status</p>
                 </a>
               </li>
+              <!-- <li class="nav-item">
+                <a href="requeststatus.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Request Status</p>
+                </a>
+              </li> -->
             </ul>
 
           </li>
@@ -290,32 +290,15 @@
     
  
 
-    <section>
+    <section class="content">
+      <div class="container-fluid">
 
-    <script>
-        function notifyFunc() {
-            var x = document.getElementById("notify-content");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-    </script>
-  <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3><i class="fa fa-palette"></i> 65</h3>
 
-                <p>Total Request</p>
+        <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title" align="center">Internal Request Status</h3>
               </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer"><i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
+        </div>
 
 
           <?php
@@ -342,10 +325,13 @@
                             echo '<table id="example1" class="table table-bordered table-striped">';
                             echo "   <thead>
                             <tr>
-                            <th>RequestID</th>
-                            <th>RequestType</th>
-                            <th>RequestTime</th>
-                            <th>RequestStatus</th>
+                            <th>Tracking ID</th>
+                            <th>Request Type</th>
+                            <th>Reason</th>
+                            <th>Request Time</th>
+                            <th>Department</th>
+                            <th>Request Status</th>
+                            <th>Authority</th>
                             <th>UserID</th>
                         
                               <th></th>
@@ -362,26 +348,422 @@
                                     $status = 'Cleared';
                                 } */
                                 echo 
-                                '<td>'.$table->requestID.'</td><td>'.$table->requestType.'</td>'.'</td>
-                                <td>'.$table->requestTime.'</td>'.'</td><td>'.$table->requestStatus.'</td><td>'.$table->userID.'</td>';
+                                '<td>'.$table->requestID.'</td><td>'.$table->requestType.'</td>'.'</td><td>'.$table->requestReason.'</td>
+                                <td>'.$table->requestTime.'</td><td>'.$table->requestDepartment.'</td>'.'</td><td>'.$table->requestStatus.'</td><td>'.$table->authority.'</td><td>'.$table->userID.'</td>';
                                 echo '</tr>';
                             }
                             echo ' </tbody>
                             <tfoot>
                             <tr>
-                              <th>RequestID</th>
-                              <th>RequestType</th>
-                              <th>RequestTime</th>
-                              <th>RequestStatus</th>
-                              <th>UserID</th>
+                            <th>Tracking ID</th>
+                            <th>Request Type</th>
+                            <th>Reason</th>
+                            <th>Request Time</th>
+                            <th>Department</th>
+                            <th>Request Status</th>
+                            <th>Authority</th>
+                            <th>UserID</th>
                           
                               <th></th>
                             </tr>
                             </tfoot>
                           </table>';                    
                         ?>
+                                <!-- respond to a request -->
+                                <div>
+                                  
+                                    <form method="POST" action="totalrequests.php" enctype="multipart/form-data">
+                                    <div class="modal-body">
+                                    <div class="card card-primary">
 
+                                                  <div class="card-header">
+                                                    <h3 class="card-title" align="center">Respond to Pending Requests</h3>
+                                                  </div>
+
+                                    <div class="card-body">
+                                    <div class="row">
+
+                                    <div class="col-sm-12">
+                                    <div class="form-group">
+                                      <!-- <span>Upload a File:</span> -->
+                                      <label>Enter Tracking ID:</label>
+                                      <input type="text" name="trackingID"  class="form-control" placeholder="Enter Tracking ID"/>
+                                    </div>
+                                    </div>
+
+                                    
+                                    <div class="modal-footer justify-content-between">
+                                    <input type="submit" name="approve" value="Approve" class="btn btn-primary"/>
+                                    </div>
+
+                                     
+                                    <div class="modal-footer justify-content-between">
+                                    <input type="submit" name="decline" value="Decline" class="btn btn-primary"/>
+                                    </div>
+
+
+                                    </div>
+                                    </div>
+
+                                    </div>
+                                    </div>
+                                    </form>
+
+
+                                    <?php
+                                    require('../db/config.php');
+                                    if (isset($_POST['approve'])){
+                                      require('../db/config.php');
+
+                                      $trackingId=$_POST['trackingID'];
+
+                                      $sql= " UPDATE internalrequesttable SET requestStatus = 'APPROVED' WHERE requestID='$trackingId'";
+                                      $Result = mysqli_query($conn, $sql); 
+                                                               
+                                       $conn->close();
+                                      echo "<p style='color:green;'>".$trackingId. "has been updated!</h1>";
+                                      header("Refresh:2; url=totalrequests.php");
+
+                                    }
+
+                                    if (isset($_POST['decline'])){
+                                      require('../db/config.php');
+
+                                      $trackingId=$_POST['trackingID'];
+
+                                      $sql= " UPDATE internalrequesttable SET requestStatus = 'DECLINED' WHERE requestID='$trackingId'";
+                                      $Result = mysqli_query($conn, $sql); 
+                                                               
+                                       $conn->close();
+                                      echo "<p style='color:green;'>".$trackingId. "has been updated!</h1>";
+                                      header("Refresh:2; url=totalrequests.php");
+
+                                    }
+                                    
+                                    ?>
+                                    
+                                </div>      <!-- respond to a request -->
+
+
+</div>
         </section>
+
+
+        <section class="content">
+      <div class="container-fluid">
+
+
+<div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title" align="center">Customer Request Status</h3>
+      </div>
+</div>
+
+
+  <?php
+                   require('../db/config.php');
+                   //created by me
+                    function getCustomerReqTableDataFromDB($s)
+                    {
+                      require('../db/config.php');
+                        $res1 = mysqli_query($conn, $s)or die(mysqli_error());
+                        $ar=array();
+                        while($r = mysqli_fetch_assoc($res1)) {
+                            $ar[]=$r;
+                        }
+                        return json_encode($ar);
+                    }
+
+                    // $s1=" SELECT t2.req_order_id,  t1.* FROM req_offer AS t1 INNER JOIN req_offer_items AS t2 WHERE t1.r_id = t2.req_order_id ";
+                    $s1=" SELECT * FROM customerrequesttable";
+                    // echo $s1;
+                    $jn1=getCustomerReqTableDataFromDB($s1);
+                    //echo $jsn;
+                    $jr1=json_decode($jn1);
+
+              
+                    echo '<table id="example1" class="table table-bordered table-striped">';
+                    echo "   <thead>
+                    <tr>
+                    <th>Tracking ID</th>
+                    <th>Request Time</th>
+                    <th>Requesting Department</th>
+                    <th>Request Status</th>
+                    <th>Authority</th>
+                    <th>Request User ID</th>
+                
+                      <th></th>
+                    </tr>
+                    </thead>";
+                    foreach($jr1 as $table)
+                    {
+                        echo '   <tbody><tr>';
+                     /*    if( $table->r_status == '0')
+                        {
+                            $status = 'Pending';
+                        }
+                        else{
+                            $status = 'Cleared';
+                        } */
+                        echo 
+                        '<td>'.$table->requestID.'</td><td>'.$table->requestTime.'</td>
+                        <td>'.$table->requestDepartment.'</td>'.'</td><td>'.$table->requestStatus.'</td>
+                        <td>'.$table->authority.'</td><td>'.$table->userID.'</td>';
+                        echo '</tr>';
+                    }
+                    echo ' </tbody>
+                    <tfoot>
+                    <tr>
+                    <th>Tracking ID</th>
+                    <th>Request Time</th>
+                    <th>Requesting Department</th>
+                    <th>Request Status</th>
+                    <th>Authority</th>
+                    <th>Request User ID</th>
+                  
+                      <th></th>
+                    </tr>
+                    </tfoot>
+                  </table>';                    
+                ?>
+
+
+   <!-- respond to a request -->
+   <div>
+                                  
+                                  <form method="POST" action="totalrequests.php" enctype="multipart/form-data">
+                                  <div class="modal-body">
+                                  <div class="card card-primary">
+
+                                                <div class="card-header">
+                                                  <h3 class="card-title" align="center">Respond to Pending Requests</h3>
+                                                </div>
+
+                                  <div class="card-body">
+                                  <div class="row">
+
+                                  <div class="col-sm-12">
+                                  <div class="form-group">
+                                    <!-- <span>Upload a File:</span> -->
+                                    <label>Enter Tracking ID:</label>
+                                    <input type="text" name="trackingID"  class="form-control" placeholder="Enter Tracking ID"/>
+                                  </div>
+                                  </div>
+
+                                  
+                                  <div class="modal-footer justify-content-between">
+                                  <input type="submit" name="approve" value="Approve" class="btn btn-primary"/>
+                                  </div>
+
+                                   
+                                  <div class="modal-footer justify-content-between">
+                                  <input type="submit" name="decline" value="Decline" class="btn btn-primary"/>
+                                  </div>
+
+
+                                  </div>
+                                  </div>
+
+                                  </div>
+                                  </div>
+                                  </form>
+
+
+                                  <?php
+                                  require('../db/config.php');
+                                  if (isset($_POST['approve'])){
+                                    require('../db/config.php');
+
+                                    $trackingId=$_POST['trackingID'];
+
+                                    $sql= " UPDATE customerrequesttable SET requestStatus = 'APPROVED' WHERE requestID='$trackingId'";
+                                    $Result = mysqli_query($conn, $sql); 
+                                                             
+                                     $conn->close();
+                                    echo "<p style='color:green;'>".$trackingId. "has been updated!</h1>";
+                                    header("Refresh:1; url=totalrequests.php");
+
+                                  }
+
+                                  if (isset($_POST['decline'])){
+                                    require('../db/config.php');
+
+                                    $trackingId=$_POST['trackingID'];
+
+                                    $sql= " UPDATE customerrequesttable SET requestStatus = 'DECLINED' WHERE requestID='$trackingId'";
+                                    $Result = mysqli_query($conn, $sql); 
+                                                             
+                                     $conn->close();
+                                    echo "<p style='color:green;'>".$trackingId. "has been updated!</h1>";
+                                    header("Refresh:1; url=totalrequests.php");
+
+                                  }
+                                  
+                                  ?>
+                                  
+                              </div>      <!-- respond to a request -->
+
+
+
+
+</div>
+</section>
+
+
+
+
+<section class="content">
+      <div class="container-fluid">
+
+
+<div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title" align="center">Material Request Status</h3>
+      </div>
+</div>
+
+
+  <?php
+                   require('../db/config.php');
+                    function getMaterialReqTableDataFromDB($s)
+                    {
+                      require('../db/config.php');
+                        $res1 = mysqli_query($conn, $s)or die(mysqli_error());
+                        $ar=array();
+                        while($r = mysqli_fetch_assoc($res1)) {
+                            $ar[]=$r;
+                        }
+                        return json_encode($ar);
+                    }
+
+                    // $s1=" SELECT t2.req_order_id,  t1.* FROM req_offer AS t1 INNER JOIN req_offer_items AS t2 WHERE t1.r_id = t2.req_order_id ";
+                    $s1=" SELECT * FROM materialrequesttable";
+                    // echo $s1;
+                    $jn1=getMaterialReqTableDataFromDB($s1);
+                    //echo $jsn;
+                    $jr1=json_decode($jn1);
+
+              
+                    echo '<table id="example1" class="table table-bordered table-striped">';
+                    echo "   <thead>
+                    <tr>
+                    <th>Tracking ID</th>
+                    <th>Department</th>
+                    <th>Request Status</th>
+                    <th>Authority</th>
+                    <th>UserID</th>
+                
+                      <th></th>
+                    </tr>
+                    </thead>";
+                    foreach($jr1 as $table)
+                    {
+                        echo '   <tbody><tr>';
+                     /*    if( $table->r_status == '0')
+                        {
+                            $status = 'Pending';
+                        }
+                        else{
+                            $status = 'Cleared';
+                        } */
+                        echo 
+                        '<td>'.$table->requestID.'</td><td>'.$table->requestDepartment.'</td>'.'</td><td>'.$table->requestStatus.'</td><td>'.$table->authority.'</td><td>'.$table->userID.'</td>';
+                        echo '</tr>';
+                    }
+                    echo ' </tbody>
+                    <tfoot>
+                    <tr>
+                    <th>Tracking ID</th>
+                    <th>Department</th>
+                    <th>Request Status</th>
+                    <th>Authority</th>
+                    <th>UserID</th>
+                  
+                      <th></th>
+                    </tr>
+                    </tfoot>
+                  </table>';                    
+                ?>
+
+                                  <!-- respond to a request -->
+                                  <div>
+                                  
+                                  <form method="POST" action="totalrequests.php" enctype="multipart/form-data">
+                                  <div class="modal-body">
+                                  <div class="card card-primary">
+
+                                                <div class="card-header">
+                                                  <h3 class="card-title" align="center">Respond to Pending Requests</h3>
+                                                </div>
+
+                                  <div class="card-body">
+                                  <div class="row">
+
+                                  <div class="col-sm-12">
+                                  <div class="form-group">
+                                    <!-- <span>Upload a File:</span> -->
+                                    <label>Enter Tracking ID:</label>
+                                    <input type="text" name="trackingID"  class="form-control" placeholder="Enter Tracking ID"/>
+                                  </div>
+                                  </div>
+
+                                  
+                                  <div class="modal-footer justify-content-between">
+                                  <input type="submit" name="approve" value="Approve" class="btn btn-primary"/>
+                                  </div>
+
+                                   
+                                  <div class="modal-footer justify-content-between">
+                                  <input type="submit" name="decline" value="Decline" class="btn btn-primary"/>
+                                  </div>
+
+
+                                  </div>
+                                  </div>
+
+                                  </div>
+                                  </div>
+                                  </form>
+
+
+                                  <?php
+                                  require('../db/config.php');
+                                  if (isset($_POST['approve'])){
+                                    require('../db/config.php');
+
+                                    $trackingId=$_POST['trackingID'];
+
+                                    $sql= " UPDATE materialrequesttable SET requestStatus = 'VERIFIED' WHERE requestID='$trackingId'";
+                                    $Result = mysqli_query($conn, $sql); 
+                                                             
+                                     $conn->close();
+                                    echo "<p style='color:green;'>".$trackingId. "has been updated!</h1>";
+                                    header("Refresh:1; url=totalrequests.php");
+
+                                  }
+
+                                  if (isset($_POST['decline'])){
+                                    require('../db/config.php');
+
+                                    $trackingId=$_POST['trackingID'];
+
+                                    $sql= " UPDATE materialrequesttable SET requestStatus = 'DECLINED' WHERE requestID='$trackingId'";
+                                    $Result = mysqli_query($conn, $sql); 
+                                                             
+                                     $conn->close();
+                                    echo "<p style='color:green;'>".$trackingId. "has been updated!</h1>";
+                                    header("Refresh:1; url=totalrequests.php");
+
+                                  }
+                                  
+                                  ?>
+                                  
+                              </div>      <!-- respond to a request -->
+
+</div>
+</section>
+
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

@@ -208,18 +208,18 @@
                   <p>Make Customer Request</p>
                 </a>
               </li>
-               <li class="nav-item">
-                <a href="totalrequests.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Request Detail</p>
-                </a>
-              </li>
               <li class="nav-item">
-                <a href="requeststatus.php" class="nav-link">
+                <a href="totalrequests.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Request Status</p>
                 </a>
               </li>
+              <!-- <li class="nav-item">
+                <a href="requeststatus.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Request Status</p>
+                </a>
+              </li> -->
             </ul>
           </li>
 
@@ -320,8 +320,8 @@
                   <div class="col-sm-4">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>REQ ID</label>
-                        <input type="text" class="form-control" name="requestID"  placeholder="Enter Tracking ID ...">
+                        <label>Tracking Number</label>
+                        <input type="text" class="form-control" name="requestID"  placeholder="Enter Tracking Number ...">
                       </div>
                     </div>
                   <div class="col-sm-4">
@@ -358,14 +358,28 @@
                       <!-- text input -->
                       <div class="form-group">
                         <label>Requesting Department</label>
-                        <input type="text" class="form-control" name="department" placeholder="Enter your department">
+                        <!-- <input type="text" class="form-control" name="department" placeholder="Enter your department"> -->
+                        <select class="form-control"  name="department">
+											  <option value="">Pick Department</option>
+											  <option value='Management'>Management</option>
+											  <option value='Admin'>Admin</option>
+											  <option value='Tech'>Tech</option>
+											</select>
                       </div>
                     </div>
                     <div class="col-sm-4">
                       <!-- text input -->
                       <div class="form-group">
                         <label>To Be Processed By</label>
-                        <input type="text" class="datetimepicker form-control" name="authority" placeholder="Who will respond to this">
+                        <!-- <input type="text" class="datetimepicker form-control" name="authority" placeholder="Who will respond to this"> -->
+                        <select class="form-control"  name="authority">
+											  <option value="">Select Authority</option>
+											  <option value="Performing Authority 1">Performing Authority 1</option>
+											  <option value="Performing Authority 2">Performing Authority 2</option>
+											  <option value="Verifying Authority">Verifying Authority</option>
+											  <option value="Authorizing Authority 1">Authorizing Authority 1</option>
+											  <option value="Authorizing Authority 2">Authorizing Authority 2</option>
+											</select>
                       </div>
                     </div>
                     </div>
@@ -392,17 +406,17 @@
 
                                 if (!empty($_POST["requestID"]) && !empty($_POST["requestType"])
                         
-                                && !empty($_POST["userID"]))
+                                && !empty($_POST["userID"]) && $_POST["department"]!="Pick Department")
                                 {                                       
 
                                     $requestID = $_POST['requestID'];
                                     $requestType = $_POST['requestType'];
-                                    //$requestTime = $_POST['requestTime'];
-                                    //$requestDate = $_POST['requestDate'];
-                                    // $requestStatus = $_POST['requestStatus'];
+                                    $requestDepartment = $_POST['department'];
+                                    $requestReason = $_POST['reason'];
+                                    $authority = $_POST['authority'];
                                     $userID = $_POST['userID'];
 
-                                    $iSql = " INSERT INTO `internalrequestTable` (`requestID`, `requestType`,`userID`)  VALUES ('$requestID', '$requestType','$userID') ";
+                                    $iSql = " INSERT INTO `internalrequestTable` (`requestID`, `requestType`,`requestReason`, `requestDepartment`,`authority`,`userID`)  VALUES ('$requestID', '$requestType','$requestReason','$requestDepartment','$authority','$userID') ";
  
                                     
                                     echo $iSql;
@@ -416,7 +430,7 @@
                                 
                                     $conn->close();
                                     echo "<h1 style='color:green;'>Added</h1>";
-                                    // header("Refresh:0; url=addItems.php");
+                                    header("Refresh:1; url=internalrequest.php");
                                 }
                                 else{
                                     echo "<center><h5 style='color:RED;'>You have empty fields, please check!</h5></center>";

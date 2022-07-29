@@ -212,15 +212,15 @@
                <li class="nav-item">
                 <a href="totalrequests.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Request Detail</p>
+                  <p>Request Status</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="requeststatus.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Request Status</p>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li>
 
@@ -321,8 +321,8 @@
                   <div class="col-sm-4">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Material Request ID</label>
-                        <input type="text" class="form-control" name="materialrequestID"  placeholder="Enter Tracking ID ...">
+                        <label>Tracking Number</label>
+                        <input type="text" class="form-control" name="materialrequestID"  placeholder="Enter Tracking Number ...">
                       </div>
                     </div>
                   <div class="col-sm-4">
@@ -334,13 +334,13 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-sm-4">
-                      <!-- text input -->
+                    <!-- <div class="col-sm-4">
+                      text input
                       <div class="form-group">
                         <label>Request Time</label>
                         <input type="time" class="form-control" name="requestTime" placeholder="00.00">
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                     <div class="row">
                     <div class="col-sm-4">
@@ -350,21 +350,24 @@
                         <input type="text" class="form-control" name="userID" placeholder="Enter Your ID">
                       </div>
                     </div>
-                  <div class="col-sm-4">
-                      <!-- text input -->
+                  <!-- <div class="col-sm-4">
+                      text input 
                       <div class="form-group">
                         <label>Request Date</label>
                         <input type="date" class="form-control" name="requestDate" placeholder="00.00">
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-sm-4">
                       <!-- text input -->
                       <div class="form-group">
                         <label>Executing Authority</label>
                         <select class="form-control" name="authority" id="authority">
                         <option value="">Select Authority</option>
-                          <option value="Performing Authority 1">Performing Authority 1</option>
-                          <option value="Performing Authority 2">Performing Authority 2</option>
+                        <option value="Performing Authority 1">Performing Authority 1</option>
+											  <option value="Performing Authority 2">Performing Authority 2</option>
+											  <option value="Verifying Authority">Verifying Authority</option>
+											  <option value="Authorizing Authority 1">Authorizing Authority 1</option>
+											  <option value="Authorizing Authority 2">Authorizing Authority 2</option>
                         </select>
                       </div>
                     </div>
@@ -372,8 +375,14 @@
                     <div class="col-sm-12">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>Requesting Department</label>
-                        <input type="text" class="form-control" name="department" placeholder="Enter ...">
+                        <label>Enter your Department</label>
+                        <!-- <input type="text" class="form-control" name="department" placeholder="Enter ..."> -->
+                        <select class="form-control"  name="department">
+											  <option value="">Pick Department</option>
+											  <option value='Management'>Management</option>
+											  <option value='Admin'>Admin</option>
+											  <option value='Tech'>Tech</option>
+											</select>
                       </div>
                     </div>
                   
@@ -401,7 +410,8 @@
                                     // $requestStatus = $_POST['requestStatus'];
                                     $userID = $_POST['userID'];
 
-                                    $iSql = " INSERT INTO `materialRequestTable` (`materialrequestID`, `materialName`,`authority`, `department`,`userID`)  VALUES ('$materialrequestID', '$materialName','$authority', '$department','$userID') ";
+                                    $iSql = " INSERT INTO `materialRequestTable` (`requestID`, `requestDepartment`, `materialName`,`authority`,`userID`) 
+                                     VALUES ('$materialrequestID', '$department', '$materialName','$authority', '$userID') ";
  
                                     
                                     echo $iSql;
@@ -415,7 +425,7 @@
                                 
                                     $conn->close();
                                     echo "<h1 style='color:green;'>Added</h1>";
-                                    // header("Refresh:0; url=addItems.php");
+                                     header("Refresh:0; url=materialrequest.php");
                                 }
                                 else{
                                     echo "<center><h5 style='color:RED;'>You have empty fields, please check!</h5></center>";
