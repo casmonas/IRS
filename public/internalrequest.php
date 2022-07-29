@@ -383,6 +383,7 @@
                       </div>
                     </div>
                     </div>
+
                     <div class="col-sm-12">
                       <!-- text input -->
                       <div class="form-group">
@@ -390,6 +391,44 @@
                         <input type="text" class="form-control" name="reason" placeholder="Why are you placing the request">
                       </div>
                     </div>
+
+                      <div class="col-sm-12">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <label>Requesting Reason</label>
+                        <select class="form-control"  name="authority">
+											  <option value="">Select Authority</option>
+											  <option value="Performing Authority 1">Performing Authority 1</option>
+                        <?php 
+                        
+                        function getJSONfromDB($sql){
+                            require("../db/config.php");
+                            $result = mysqli_query($conn, $sql) or die(mysqli_error());
+
+                            $ar = array();
+
+                            while($row = mysqli_fetch_assoc($result)){
+                              $ar[]= $row;
+
+                              echo"<br>";
+                            }
+                            return json_encode($ar);
+
+                          }
+                          $i1 = "SELECT * email from userTable";
+
+                          $json1 = getJSONfromDB($i1);
+
+                          $decJs1=json_decode($json1);
+
+                          foreach($decJs1 as $v1){
+                            echo "<option value='$v1->email'>".$v1->fullname.$v1->email."</option>";
+                          }
+                        } ?>
+											</select>
+
+                      </div>
+                    </div>   
                   
                 </div>
             </div>
@@ -438,7 +477,7 @@
                                 }
 
 
-                                $query = 'select group_contact(email'
+                               // $query = 'select group_contact(email);
                                 
               }
               
