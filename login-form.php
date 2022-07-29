@@ -114,20 +114,20 @@
       //trying to know if it will work for userRole , seems to be working at the moment
       //if not, delete and also delete if( $row[0] === $u && $row[1] === $p && $row[2] === $table->userRole to "VERIFYING AUTHORITY")
       //and uncomment   //$_SESSION['utype'] = "VERIFYING AUTHORITY";/* this is the key */
-      $jn1=getTableDataFromDB($s1);
+      //$jn1=getTableDataFromDB($s1);
       //echo $jsn;
-      $table=json_decode($jn1);
+     /// $table=json_decode($jn1);
 
     
 
-      if( $row[0] === $u && $row[1] === $p && $row[2] === $table->userRole )
+      if( $row[0] === $u && $row[1] === $p && $row[2] === "VERIFYING AUTHORITY" )
       {
           session_start();
           $_SESSION['userid'] = $u;
-          //$_SESSION['utype'] = "VERIFYING AUTHORITY";/* this is the key */
+          $_SESSION['utype'] = "VERIFYING AUTHORITY";/* this is the key */
           
            //trying to know if this will work with the ut
-          $_SESSION['utype'] = $table->userRole;
+         // $_SESSION['utype'] = $table->userRole;
           $_SESSION['username'] = session_id();
           $_SESSION['last_login_timestamp'] = time();
           header("Location: public/dashboard.php");                
