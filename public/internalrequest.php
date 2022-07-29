@@ -393,7 +393,8 @@
                   
                 </div>
             </div>
-            </div>          
+            </div>     
+
              <?php
 
             require("../db/config.php");
@@ -435,6 +436,9 @@
                                 else{
                                     echo "<center><h5 style='color:RED;'>You have empty fields, please check!</h5></center>";
                                 }
+
+
+                                $query = 'select group_contact(email'
                                 
               }
               
@@ -442,12 +446,49 @@
                 
                 ?>
 
+
+
+
+
             <div class="modal-footer justify-content-between">
               <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
               <button type="submit" class="btn btn-primary" name="btnSave">Send</button>
             </div>
           </div>
               </form>
+
+
+                              <!-- <form method="POST" action="documentupload.php" enctype="multipart/form-data">
+
+                                  <div class="modal-body">
+                                  <div class="card card-primary">
+
+                                                <div class="card-header">
+                                                  <h3 class="card-title" align="center">Upload an supporting document (if any)</h3>
+                                                </div>
+
+                                  <div class="card-body">
+                                  <div class="row">
+
+                                  <div class="col-sm-12">
+                                  <div class="form-group">
+                                   
+                                    <label> Select file to upload:</label>
+                                    <input type="file" name="fileToUpload"  class="form-control"/>
+                                  </div>
+                                  </div>
+
+                                  </div>
+                                  </div>
+
+                                  </div>
+                                  </div>
+
+
+                                  <div class="modal-footer justify-content-between">
+                                  <input type="submit" name="uploadBtn" value="Upload the File" class="btn btn-primary"/>
+                                  </div>
+                              </form> -->
       
    
         

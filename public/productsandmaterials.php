@@ -393,10 +393,11 @@
 
 
 
-            <div class="modal-footer justify-content-between">
-              <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
+            <!-- <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -
               <button type="submit" class="btn btn-primary" name="btnSave">Send</button>
-            </div>
+            </div> -->
+
           </div>
               </form>
 
