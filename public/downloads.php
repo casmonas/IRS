@@ -1,4 +1,4 @@
-<?php include 'filesLogic.php';?>
+<?php include 'fileslogic.php';?>
 <!DOCTYPE html>
 <html>
 <head>
