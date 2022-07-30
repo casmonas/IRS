@@ -401,7 +401,8 @@
 											  <option value="Performing Authority 1">Performing Authority 1</option>
                         <?php 
                         
-                        function getJSONfromDB($sql){
+                        function getJSONfromDB($sql)
+                        {
                             require("../db/config.php");
                             $result = mysqli_query($conn, $sql) or die(mysqli_error());
 
@@ -424,7 +425,8 @@
                           foreach($decJs1 as $v1){
                             echo "<option value='$v1->email'>".$v1->fullname.$v1->email."</option>";
                           }
-                        } ?>
+                        }
+                         ?>
 											</select>
 
                       </div>
