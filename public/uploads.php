@@ -38,20 +38,6 @@ if (isset($_POST['uploadBtn']) && $_POST['uploadBtn'] == 'Upload the File')
 
     {
 
-      //not confirmed
-      // Check if file already exists
-if (file_exists($target_file)) {
-  echo "Sorry, file already exists.";
-  header("Refresh:1; url=files.php");
-  $uploadOk = 0;
-}
-
-// Check file size
-if ($_FILES["fileToUpload"]["size"] > 500000) {
-  echo "Sorry, your file is too large.";
-  header("Refresh:1; url=files.php");
-  $uploadOk = 0;
-}
 
 
       // directory where file will be moved

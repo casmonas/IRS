@@ -1,5 +1,6 @@
 <?php
-include 'filelogic.php';
+include 'filelogic.php';  
+//require("filelogic.php");
 ob_start();
 
     session_start();
@@ -307,72 +308,121 @@ ob_start();
        
      <!-- Form starts here -->
          
-              <?php
+          
 
-                if (isset($_SESSION['message']) && $_SESSION['message'])
+                              <form method="POST" action="uploads.php" enctype="multipart/form-data">
 
-                {
+                 
 
-                printf('<b>%s</b>', $_SESSION['message']);
+                              <!-- <div class="modal-body">
+                              <div class="card card-primary">
 
-                unset($_SESSION['message']);
+                                            <div class="card-header">
+                                              <h3 class="card-title" align="center">Upload</h3>
+                                            </div>
 
-                }
+                              <div class="card-body">
+                              <div class="row">
 
-                ?>
+                              <div class="col-sm-12">
+                              <div class="form-group">
+                                <span>Upload a File:</span> 
+                                <label> Select file to upload:</label>
+                                <input type="file" name="uploadedFile"  class="form-control"/>
+                              </div>
+                              </div>
 
-<form method="POST" action="uploads.php" enctype="multipart/form-data">
+                              </div>
+                              </div>
 
+                              </div>
+                              </div>
+
+
+                              <div class="modal-footer justify-content-between">
+                              <input type="submit" name="uploadBtn" value="Upload the File" class="btn btn-primary"/>
+                              </div> -->
+                              </form>
+
+
+
+
+
+
+
+
+                    <!-- new upload -->
+                  <form action="files.php" method="post" enctype="multipart/form-data" >
+                    
+
+                  <?php
+
+                    if (isset($_SESSION['message']) && $_SESSION['message'])
+
+                    {
+
+                    printf('<b>%s</b>', $_SESSION['message']);
+
+                    unset($_SESSION['message']);
+
+                    }
+
+                    ?>
 <div class="modal-body">
 <div class="card card-primary">
 
               <div class="card-header">
-                <h3 class="card-title" align="center">Upload</h3>
-              </div>
+
+                      <h3>Upload File</h3>
+
+                      </div>
 
 <div class="card-body">
 <div class="row">
 
 <div class="col-sm-12">
 <div class="form-group">
-  <!-- <span>Upload a File:</span> -->
-  <label> Select file to upload:</label>
-  <input type="file" name="uploadedFile"  class="form-control"/>
+
+                      <input type="file" name="myfile"  class="form-control"> <br>
+                      <div class="modal-footer justify-content-between">
+                      <button type="submit" name="save" class="btn btn-primary">upload</button>
+                  </div>
+                      </div>
+</div>
+
 </div>
 </div>
 
 </div>
 </div>
-
-</div>
-</div>
+                    </form>
 
 
-<div class="modal-footer justify-content-between">
-<input type="submit" name="uploadBtn" value="Upload the File" class="btn btn-primary"/>
-</div>
-</form>
-
-
-
-<form action="files.php" method="post" enctype="multipart/form-data" >
-          <h3>Upload File</h3>
-          <input type="file" name="myfile"> <br>
-          <button type="submit" name="save">upload</button>
-        </form>
-
-
-
-
-
-
-            <!--   <form action="uploads.php" method="post" class="btn btn-primary" enctype="multipart/form-data">
-                Select file to upload:
-                <input type="file" name="fileToUpload" id="fileToUpload">
+                    
         
-                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-                
-              </form> -->
+
+                          <table class="table table-bordered table-striped">
+                  <thead>
+                      <th>ID</th>
+                      <th>Filename</th>
+                      <th>size (in mb)</th>
+                      <th>Downloads</th>
+                      <th>Action</th>
+                  </thead>
+                  <tbody>
+                    <?php  foreach ($files as $file): require("../db/config.php");?>
+                      <tr>
+                        <td><?php echo $file['id']; ?></td>
+                        <td><?php echo $file['name']; ?></td>
+                        <td><?php echo floor($file['size'] / 1000) . ' KB'; ?></td>
+                        <td><?php echo $file['downloads']; ?></td>
+                        <td><a href="files.php?file_id=<?php echo $file['id'] ?>">Download</a></td>
+                      </tr>
+                    <?php endforeach;?>
+
+                  </tbody>
+                  </table>
+
       
    
         
