@@ -132,18 +132,18 @@
           $_SESSION['last_login_timestamp'] = time();
           header("Location: public/dashboard.php");                
       }
-      else if ( $row[0] === $u && $row[1] === $p && $row[2] === "PERFORMING AUTHORITY"){
+      else if ( $row[0] === $u && $row[1] === $p && $row[2] === "PERFORMING AUTHORITY 1"){
           session_start();
           $_SESSION['userid'] = $u;            
-          $_SESSION['utype'] = "moderator";
+          $_SESSION['utype'] = "PERFORMING AUTHORITY 1";
           $_SESSION['username'] = session_id();
           $_SESSION['last_login_timestamp'] = time();
-          header("Location: public/dashboard.php");   
+          header("Location: performone/dashboard.php");   
       }
-      else if ( $row[0] === $u && $row[1] === $p && $row[2] === "AUTHORIZING AUTHORITY"){
+      else if ( $row[0] === $u && $row[1] === $p && $row[2] === "AUTHORIZING AUTHORITY 1"){
           session_start();
           $_SESSION['userid'] = $u;            
-          $_SESSION['utype'] = "accounts";
+          $_SESSION['utype'] = "AUTHORIZING AUTHORITY 1";
           $_SESSION['username'] = session_id();
           $_SESSION['last_login_timestamp'] = time();
           header("Location: public/dashboard.php");   
