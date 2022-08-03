@@ -412,26 +412,37 @@
 
                                     <?php
                                     require('../db/config.php');
-                                    if (isset($_POST['approve'])){
+                                   
+
+                                   
+                                 
+                                    
+
+                                    if (isset($_POST['approve'])  ){
                                       // if($table->authority!=$_SESSION['utype']){
-                                  
-  
-
-                             
-                                       
                                         require('../db/config.php');
-
                                         $trackingId=$_POST['trackingID'];
 
-                                        $sql= "UPDATE internalrequesttable SET requestStatus = 'VERIFIED' WHERE requestID='$trackingId'";
-                                        $Result = mysqli_query($conn, $sql); 
-                                                                
-                                        $conn->close();
-                                        echo "<p style='color:green;'>".$trackingId. "has been updated!</h1>";
-                                        header("Refresh:2; url=totalrequests.php");
+                                        $sql = "SELECT authority FROM internalrequesttable WHERE authority='$ut'";
+    
+                                        $result = mysqli_query($conn, $sql);     
+                                        $row = mysqli_fetch_row($result);
 
-                                
-                                      
+                                       
+                              
+
+                                         if( $row[0]===$ut )
+                                         {
+                                          echo "<p style='color:red;'>You are not authorized!</h1>";         
+                                         }else{
+                                               $sql= "UPDATE internalrequesttable SET requestStatus = 'VERIFIED' WHERE requestID='$trackingId'";
+                                              $Result = mysqli_query($conn, $sql);                     
+                                              $conn->close();
+                                              echo "<p style='color:green;'>".$trackingId. "has been updated!</h1>";
+                                              header("Refresh:2; url=totalrequests.php");
+
+                                         }
+                                                                        
                                      
                                     }
 

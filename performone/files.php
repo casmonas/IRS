@@ -6,7 +6,7 @@ ob_start();
     session_start();
 
     $valid_session = isset($_SESSION['username']) ? $_SESSION['username'] === session_id() : FALSE;
-    if (!$valid_session || $_SESSION['utype'] != "VERIFYING AUTHORITY") {
+    if (!$valid_session || $_SESSION['utype'] != "PERFORMING AUTHORITY 1") {
         
         
 ?>
