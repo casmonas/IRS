@@ -1,4 +1,183 @@
 
+<?php
+
+//include 'db/config.php';
+
+
+// if user click Login button
+if(isset($_POST['btnLogin'])) {
+  require('db/config.php');
+  // get username and password
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+  // set time for session timeout
+  // $currentTime = time() + 25200;
+  // $expired = 3600;
+
+  // create array variable to handle error
+  $error = array();
+
+  // check whether $username is empty or not
+  if(empty($username)) {
+      $error['username'] = "*Username should be filled.";
+  }
+
+  // check whether $password is empty or not
+  if(empty($password)) {
+      $error['password'] = "*Password should be filled.";
+  }
+
+  // if username and password is not empty, check in database
+  if(!empty($username) && !empty($password)) {
+
+      // change username to lowercase
+      // $username = strtolower($username);
+
+      //encript password to sha256
+      // $password = hash('sha256',$username.$password);
+
+      // get data from user table
+      $sql_query = "SELECT username,password,userRole FROM userTable  WHERE username = ? AND password = ?";
+
+      $stmt = $conn->stmt_init();
+      if($stmt->prepare($sql_query)) {
+          // Bind your variables to replace the ?s
+          $stmt->bind_param('ss', $username, $password);
+          // Execute query
+          $stmt->execute();
+          /* store result */
+          $stmt->store_result();
+          $row = $stmt->num_rows;
+          // Close statement object
+          $stmt->close();
+          if( $row[0] === $u && $row[1] === $p && $row[2] === "VERIFYING AUTHORITY" )
+          {
+              session_start();
+              $_SESSION['userid'] = $u;
+              $_SESSION['utype'] = "VERIFYING AUTHORITY";/* this is the key */
+              
+               //trying to know if this will work with the ut
+             // $_SESSION['utype'] = $table->userRole;
+              $_SESSION['username'] = session_id();
+              $_SESSION['last_login_timestamp'] = time();
+              header("Location: public/dashboard.php");                
+          }
+          else if ( $row[0] === $u && $row[1] === $p && $row[2] === "PERFORMING AUTHORITY 1"){
+              session_start();
+              $_SESSION['userid'] = $u;            
+              $_SESSION['utype'] = "PERFORMING AUTHORITY 1";
+              $_SESSION['username'] = session_id();
+              $_SESSION['last_login_timestamp'] = time();
+              header("Location: performone/dashboard.php");   
+          }
+          else if ( $row[0] === $u && $row[1] === $p && $row[2] === "AUTHORIZING AUTHORITY 1"){
+              session_start();
+              $_SESSION['userid'] = $u;            
+              $_SESSION['utype'] = "AUTHORIZING AUTHORITY 1";
+              $_SESSION['username'] = session_id();
+              $_SESSION['last_login_timestamp'] = time();
+              header("Location: public/dashboard.php");   
+          }
+          else if ( $row[0] === $u && $row[1] === $p && $row[2] === "admin"){
+              session_start();
+              $_SESSION['userid'] = $u;
+              $_SESSION['utype'] = "admin";
+              $_SESSION['username'] = session_id();
+              $_SESSION['last_login_timestamp'] = time();
+              header("Location: admin/admindashboard.php");   
+          } else {
+              $error['failed'] = "Invalid Username or Password!";
+          }
+      }
+
+  }
+}
+
+
+
+
+// start session
+//session_start();
+
+if( isset($_POST['btnLogin'])){
+
+  require('db/config.php');
+
+  $u = $_POST['username'];
+  $p = $_POST['password'];
+
+  if(empty($u)) {
+    $error['username'] = "*Username should be filled.";
+    }
+
+  // check whether $password is empty or not
+    if(empty($p)) {
+        $error['password'] = "*Password should be filled.";
+    }
+
+            if(!empty($u) && !empty($p)) {  
+
+            $sql = "SELECT username,password,userRole FROM userTable WHERE username='$u' AND password='$p'";
+
+              $result = mysqli_query($conn, $sql);     
+              $row = mysqli_fetch_row($result);
+
+
+
+              if( $row[0] === $u && $row[1] === $p && $row[2] === "VERIFYING AUTHORITY" )
+              {
+                  session_start();
+                  $_SESSION['userid'] = $u;
+                  $_SESSION['utype'] = "VERIFYING AUTHORITY";/* this is the key */
+                  
+                  //trying to know if this will work with the ut
+                // $_SESSION['utype'] = $table->userRole;
+                  $_SESSION['username'] = session_id();
+                  $_SESSION['last_login_timestamp'] = time();
+                  header("Location: public/dashboard.php");                
+              }
+              else if ( $row[0] === $u && $row[1] === $p && $row[2] === "PERFORMING AUTHORITY 1"){
+                  session_start();
+                  $_SESSION['userid'] = $u;            
+                  $_SESSION['utype'] = "PERFORMING AUTHORITY 1";
+                  $_SESSION['username'] = session_id();
+                  $_SESSION['last_login_timestamp'] = time();
+                  header("Location: performone/dashboard.php");   
+              }
+              else if ( $row[0] === $u && $row[1] === $p && $row[2] === "AUTHORIZING AUTHORITY 1"){
+                  session_start();
+                  $_SESSION['userid'] = $u;            
+                  $_SESSION['utype'] = "AUTHORIZING AUTHORITY 1";
+                  $_SESSION['username'] = session_id();
+                  $_SESSION['last_login_timestamp'] = time();
+                  header("Location: public/dashboard.php");   
+              }
+              else if ( $row[0] === $u && $row[1] === $p && $row[2] === "admin"){
+                  session_start();
+                  $_SESSION['userid'] = $u;
+                  $_SESSION['utype'] = "admin";
+                  $_SESSION['username'] = session_id();
+                  $_SESSION['last_login_timestamp'] = time();
+                  header("Location: admin/admindashboard.php");   
+              }
+              else
+              {
+                $error ['failed']= "Incorrect Username or Password";
+                  //header("Location: login-form.php?msg=$error");
+              }
+            }
+
+
+ 
+}
+
+
+
+
+
+
+?>
 
 
 <!DOCTYPE html>
@@ -22,12 +201,15 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition login-page">
+<script>
+    start_loader()
+  </script>
 <div class="login-box">
   <div class="login-logo">
     <a href="index.php"><b>Internal Request</b>System</a>
   </div>
   <!-- /.login-logo -->
-  <form method="POST">
+  <form method="POST" id="login-frm">
   <!-- <form action="dashboard.php" method="post"> -->
   <div class="card">
     <div class="card-body login-card-body">
@@ -35,7 +217,7 @@
       <div class="custom-padding2 col-pink btn-danger"><?php echo isset($error['failed']) ? $error['failed'] : '';?></div>
 
         <div class="input-group mb-3">
-          <input type="text" class="form-control" name="username" placeholder="Username">
+          <input type="text" class="form-control" name="username" placeholder="Username" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -43,7 +225,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="password">
+          <input type="password" class="form-control" placeholder="Password" name="password" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -78,99 +260,15 @@
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 
+<script src="dist/js/script.js"></script>
+
+
+<script>
+  $(document).ready(function(){
+    end_loader();
+  })
+</script>
+
 </body>
 </html>
 
-
-<?php
-
-    //include 'db/config.php';
-
-
-    // start session
-    //session_start();
-
-    if( isset($_POST['btnLogin'])){
-      require('db/config.php');
-
-      $u = $_POST['username'];
-      $p = $_POST['password'];
-
-      if(empty($u)) {
-        $error['username'] = "*Username should be filled.";
-    }
-
-    // check whether $password is empty or not
-    if(empty($p)) {
-        $error['password'] = "*Password should be filled.";
-    }
-
-
-      $sql = "SELECT username,password,userRole FROM userTable WHERE username='$u' AND password='$p'";
-    
-      $result = mysqli_query($conn, $sql);     
-      $row = mysqli_fetch_row($result);
-
-      //trying to know if it will work for userRole , seems to be working at the moment
-      //if not, delete and also delete if( $row[0] === $u && $row[1] === $p && $row[2] === $table->userRole to "VERIFYING AUTHORITY")
-      //and uncomment   //$_SESSION['utype'] = "VERIFYING AUTHORITY";/* this is the key */
-      //$jn1=getTableDataFromDB($s1);
-      //echo $jsn;
-     /// $table=json_decode($jn1);
-
-    
-
-      if( $row[0] === $u && $row[1] === $p && $row[2] === "VERIFYING AUTHORITY" )
-      {
-          session_start();
-          $_SESSION['userid'] = $u;
-          $_SESSION['utype'] = "VERIFYING AUTHORITY";/* this is the key */
-          
-           //trying to know if this will work with the ut
-         // $_SESSION['utype'] = $table->userRole;
-          $_SESSION['username'] = session_id();
-          $_SESSION['last_login_timestamp'] = time();
-          header("Location: public/dashboard.php");                
-      }
-      else if ( $row[0] === $u && $row[1] === $p && $row[2] === "PERFORMING AUTHORITY 1"){
-          session_start();
-          $_SESSION['userid'] = $u;            
-          $_SESSION['utype'] = "PERFORMING AUTHORITY 1";
-          $_SESSION['username'] = session_id();
-          $_SESSION['last_login_timestamp'] = time();
-          header("Location: performone/dashboard.php");   
-      }
-      else if ( $row[0] === $u && $row[1] === $p && $row[2] === "AUTHORIZING AUTHORITY 1"){
-          session_start();
-          $_SESSION['userid'] = $u;            
-          $_SESSION['utype'] = "AUTHORIZING AUTHORITY 1";
-          $_SESSION['username'] = session_id();
-          $_SESSION['last_login_timestamp'] = time();
-          header("Location: public/dashboard.php");   
-      }
-      else if ( $row[0] === $u && $row[1] === $p && $row[2] === "admin"){
-          session_start();
-          $_SESSION['userid'] = $u;
-          $_SESSION['utype'] = "admin";
-          $_SESSION['username'] = session_id();
-          $_SESSION['last_login_timestamp'] = time();
-          header("Location: admin/admindashboard.php");   
-      }
-      else
-      {
-          $msg = "Incorrect Username or Password";
-          header("Location: login-form.php?msg=$msg");
-      }
-    }else{
-
-    }
-
-    if ($_POST)
-    {
-       
-    
-    }
-
-
-    
-?>
