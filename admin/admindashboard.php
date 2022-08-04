@@ -284,7 +284,12 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3><i class="fa fa-users"></i> 150</h3>
+                <h3><i class="fa fa-users"></i> <?php 
+                    $supplier = $conn->query("SELECT * FROM usertable")->num_rows;
+                    echo number_format($supplier);
+                  ?></h3>
+                <!-- <h3><i class="fa fa-users"></i> 150</h3> -->
+                
 
                 <p>Total Users</p>
               </div>
@@ -299,7 +304,10 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3><i class="fa fa-shopping-cart"></i>53</h3>
+                <h3><i class="fa fa-shopping-cart"></i><?php 
+                    $supplier = $conn->query("SELECT * FROM producttable")->num_rows;
+                    echo number_format($supplier);
+                  ?></h3>
 
                 <p>Total Products</p>
               </div>
@@ -314,7 +322,10 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3><i class="fa fa-cart-plus"></i>44</h3>
+                <h3><i class="fa fa-cart-plus"></i><?php 
+                    $supplier = $conn->query("SELECT * FROM internalrequesttable")->num_rows;
+                    echo number_format($supplier);
+                  ?></h3>
 
                 <p>Total Requests</p>
               </div>
@@ -351,7 +362,10 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3><i class="fa fa-palette"></i> 65</h3>
+                <h3><i class="fa fa-palette"></i> <?php 
+                    $supplier = $conn->query("SELECT * FROM materialtable")->num_rows;
+                    echo number_format($supplier);
+                  ?></h3>
 
                 <p>Total Materials</p>
               </div>
